@@ -1,0 +1,11 @@
+DefaultPackage
+grails-app.conf
+grails-app.controllers
+grails-app.domain.test
+scripts
+src.groovy
+unzipped
+unzipped.grails-app.conf
+unzipped.grails-app.controllers
+unzipped.scripts
+unzipped.src.groovy
