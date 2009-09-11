@@ -1,4 +1,6 @@
 import groovy.util.BuilderSupport
+import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
+import javax.imageio.ImageIO
 
 /**
  * A simple builder for creating graphviz dot files.
@@ -6,15 +8,13 @@ import groovy.util.BuilderSupport
  * 	 http://curious-attempt-bunny.blogspot.com/2008/06/graphviz-dabbling-with-groovy-builders.html
  */
 class DotBuilder extends BuilderSupport {
-  private def config 
   private def out
   private def outTarget
   private def from
 
-  DotBuilder(config) {
+  DotBuilder() {
     outTarget = new StringWriter()
     out = new PrintWriter(outTarget)
-	this.config = config
   }
   
   protected void setParent(Object parent, Object child) {}
@@ -32,8 +32,10 @@ class DotBuilder extends BuilderSupport {
     if (name == 'from') {
       from = value
 	  return this
+	} else if (name == 'text') {
+	    out.println value
     } else {
-      out.println """$name="$value";"""
+      out.println "$name=\"$value\";"
     }
   }
 
@@ -61,10 +63,6 @@ class DotBuilder extends BuilderSupport {
 	return this
   }  
  
-  private createAssociation(from, to, attributes) {
-    out.println """"$from" -> "$to" [${attributes.collect { "$it.key=\"$it.value\"" }.join(", ")}];"""
-  }
-
   def to(Object name) {
     out.println """"$from" -> "$name";"""
     from = name // chain to's
@@ -77,20 +75,26 @@ class DotBuilder extends BuilderSupport {
 	println "Graphviz dot:\n"+graph
 	def p
 	try {
-	  def dotExe = config?.graphviz?.dot?.executable
+	  def dotExe = CH.config?.graphviz?.dot?.executable
 	  p = (dotExe+" -T"+outputFormat).execute()
 	} catch (IOException ex) {
 	  throw new RuntimeException("Graphviz dot utility must be installed and on path, or path set in graphviz.dot.executable. Download from http://graphviz.org ",ex)
 	} 
 
-    p.outputStream.withStream { stream ->
-      stream << graph
-    }
+   	p.outputStream.withStream { stream ->
+     		stream << graph
+   	}
+
 //    p.waitFor() // drop this for jpg (at least on mac)
 	def imageBuffer = new ByteArrayOutputStream()
 	imageBuffer << p.inputStream
 	byte[] image = imageBuffer.toByteArray()
 	return image
   }
+
+  private createAssociation(from, to, attributes) {
+    out.println """"$from" -> "$to" [${attributes.collect { "$it.key=\"$it.value\"" }.join(", ")}];"""
+  }
+
 
 }
