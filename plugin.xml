@@ -9,6 +9,7 @@ The excellent utility graphviz (http://www.graphviz.org/) is used for diagram la
   <documentation>http://grails.org/plugin/class-diagram</documentation>
   <resources>
     <resource>ClassDiagramConfig</resource>
+    <resource>UrlMappings</resource>
     <resource>ClassDiagramController</resource>
     <resource>test.AbstractParent</resource>
     <resource>test.Bar</resource>
