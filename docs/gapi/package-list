@@ -2,10 +2,8 @@ DefaultPackage
 grails-app.conf
 grails-app.controllers
 grails-app.domain.test
+grails-app.services
 scripts
 src.groovy
-unzipped
-unzipped.grails-app.conf
-unzipped.grails-app.controllers
-unzipped.scripts
-unzipped.src.groovy
+test.integration
+test.unit
