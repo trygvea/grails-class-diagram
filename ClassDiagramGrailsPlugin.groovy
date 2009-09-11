@@ -1,4 +1,3 @@
-// Tesing git-svn: change done
 class ClassDiagramGrailsPlugin {
     // the plugin version
     def version = "0.3"
