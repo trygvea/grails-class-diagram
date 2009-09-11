@@ -3,11 +3,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
 class ClassDiagramLegendService {
 	
 	static transactional = false
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> git svn trouble - core 0.3 in
 	byte[] createLegendImage() {
 		def style = CH.config.classDiagram.legend.style
 		def cfg = CH.config.classDiagram.associations
