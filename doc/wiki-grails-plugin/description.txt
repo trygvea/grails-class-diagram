@@ -161,5 +161,10 @@ h1. Release notes
 h1. Backlog
 
 0.5 backlog
+* Fontsize slider should override fontsize preferences. Multiple fontsize sliders (node, edge, package). 
+* Better enum support. Enums now outside packages
+* editable combobox on outputFormat
+* user should  be able to select domain class subset
+* Extend diagram to non-domain classes (services, controllers, etc. etc.) 
 
 

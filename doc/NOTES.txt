@@ -3,15 +3,13 @@ See backlog and release notes in description.txt.
 Work-in-progress notes
 -------------------------------------------------------------------------------
 
-0.4 backlog
-
-Unassigned
 
 
 Detailed feature & issue list
 -------------------------------------------------------------------------------
 
 Unassigned
+ * Fontsize slider should override fontsize preferences. Multiple fontsize sliders (node, edge, package). 
  * add packages in source to provide more consistent logging (according to http://grails.markmail.org/search/?q=list%3Adev+#query:list%3Adev%20+page:2+mid:uunlkazqvgpvhaqt+state:results)
  * GUI spinner should be bigger & positioned over the graph, and run until image finished loading!
  * Report errors on server (ex dot/format errors) as grails errors. Remove alert in ajax error
