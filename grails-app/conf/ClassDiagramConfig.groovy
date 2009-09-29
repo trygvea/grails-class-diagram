@@ -21,7 +21,7 @@ classDiagram {
             showPackages = false
             autoUpdate = true
             graphOrientation = "TB" // See http://www.graphviz.org/doc/info/attrs.html#k:rankdir for valid values
-            fontsize = 10
+            fontsize = 9
         }
     }
     associations {

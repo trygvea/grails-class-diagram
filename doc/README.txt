@@ -7,7 +7,6 @@ Backlog
 * Graphviz 2.24: translates bgcolor:none to black, while prior versions translate to white! Fixed
 * (cleaned up CSS a bit)
 * Properties page now initially invisible
---
 * dotBuilder now supports subgraphs
 * classes can now be shown grouped in packages
 * brushed up legend
