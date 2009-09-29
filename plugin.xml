@@ -10,8 +10,10 @@ The excellent utility graphviz (http://www.graphviz.org/) is used for diagram la
   <documentation>http://grails.org/plugin/class-diagram</documentation>
   <resources>
     <resource>ClassDiagramConfig</resource>
+    <resource>Config</resource>
     <resource>UrlMappings</resource>
     <resource>ClassDiagramController</resource>
+    <resource>RootPackagedClass</resource>
     <resource>test.AbstractParent</resource>
     <resource>test.Bar</resource>
     <resource>test.Child</resource>
@@ -20,6 +22,8 @@ The excellent utility graphviz (http://www.graphviz.org/) is used for diagram la
     <resource>test.Many</resource>
     <resource>test.Oner</resource>
     <resource>test.Parent</resource>
+    <resource>test.subpackage.SimpleClass1</resource>
+    <resource>test.subpackage.SimpleClass2</resource>
     <resource>ClassDiagramLegendService</resource>
     <resource>ClassDiagramService</resource>
   </resources>

@@ -1,0 +1,139 @@
+h1. The ClassDiagram plugin 
+
+The ClassDiagram plugin provides an UML-like diagram of your grails domain classes.
+
+
+
+h1. Usage
+After installation, a class diagram of our domain classes should hopefully be available under [http://localhost:8080/yourApp/classDiagram]:
+
+!screenshots-516/sampleClassDiagram.jpg! 
+
+
+
+h1. Changing diagram preferences
+
+You can change diagram preferences in  the preferences dialog:
+
+!description-516/Preferences.jpg! 
+
+
+
+h1. Legend 
+
+The following relations are recognized:
+
+!screenshots-516/legend.jpg!
+
+
+
+h1. Configuration file
+
+You may add or change properties (such as colors and shapes) in your projects conf/Config.groovy file. 
+These will then override the plugins properties.
+You can also change the plugin properties. If the plugin is installed globally you will find it exploded under something like ~/.grails/1.1.1/global-plugins/grails-class-diagram-0.1/conf/ClassDiagramConfig.groovy.
+
+
+
+Below follows the full set of properties you may change (or append your own skin!) 
+{code}
+
+/**
+ * Default properties. May be overridden in Config.properties for each project
+ */
+graphviz {
+	dot.executable = "dot" // include full file path if not on path
+}
+
+classDiagram {
+	associations {
+		arrows {
+			// See http://www.graphviz.org/doc/info/arrows.html for available arrowheads and their visual appearance 
+			references = "open"
+			belongsTo = "odiamond"
+			embedded = "diamond"
+			inherits = "onormal"
+			none = "none"
+		}
+		decorators {
+			// plain text to be shown on edge ends
+			hasOne = "    1"
+			hasMany = "    *"
+			none = ""
+		}
+	}
+	skins {
+		// See http://www.graphviz.org/Documentation.php for available properties on graph, node and edge
+		// Note: the following properties have a special meaning and should be changed with care: {shape, fontSize}. 
+		classic {
+			name = "Classic"
+			graphStyle = [bgcolor:"none"]
+			nodeStyle = [style:"rounded,filled", color:"blue", fillcolor:"azure2", fontname:"Verdana"]
+			edgeStyle = [color:"gray40", fontname:"Verdana"]
+		}
+		regular {
+			name = "Regular"
+			graphStyle = [bgcolor:"none"]
+			nodeStyle = [style:"filled", color:"lightyellow3", fillcolor:"lightyellow", fontname:"Verdana"]
+			edgeStyle = [color:"gray40", fontname:"Verdana"]
+		}
+		white {
+			name = "White on Gray"
+			graphStyle = [bgcolor:"gray90"]
+			nodeStyle = [style:"filled", color:"gray40", fillcolor:"white", fontname:"Verdana"]
+			edgeStyle = [color:"gray40", fontname:"Verdana"]
+		}
+		gray {
+			name = "Gray"
+			graphStyle = [bgcolor:"none"]
+			nodeStyle = [style:"filled", color:"gray40", fillcolor:"gray90", fontname:"Verdana"]
+			edgeStyle = [color:"gray40", fontname:"Verdana"]
+		}
+	}
+	legend {
+		style {
+			graphStyle = [bgcolor:"gray94"]
+			nodeStyle = [style:"filled", color:"gray50", fillcolor:"white", fontsize:8, fontname:"Verdana"]
+			edgeStyle = [color:"gray50", fontsize:8, fontname:"Verdana"]
+		}
+	}
+}
+{code}
+
+
+
+h1. Credits
+
+Thanks to Merlyn Albery-Speyer's blogs on the subject. The "DotBuilder":http://curious-attempt-bunny.blogspot.com/2008/06/graphviz-dabbling-with-groovy-builders.html was based on his idea.
+Also thanks to Frank Schoep for his "blog":http://www.ffnn.nl/pages/articles/media/uml-diagrams-using-graphviz-dot.php on UML diagrams using graphviz.
+And of course thanks to the people behind the fantastic graphviz utility.
+
+
+
+h1. Release notes
+
+0.1 Initial release
+
+0.2 Bugfix. Removed domain classes in sub-packages when packaging plugin.  
+
+0.3 Brush-up. Added support for embedded objects, provided a GUI for changing
+	properties, re-ordering
+
+
+
+h1. Backlog
+
+0.4 backlog
+
+Unassigned
+ * GUI spinner should be bigger & positioned over the graph
+ * Bad error reporting when user selects unrecognized output format
+ * Write some tests. Get rid of domain classes. Add dynamically in test.
+ * user should  be able to select domain class subset
+ * Enum support
+ * Package support
+ 	* Provide graphic support for pckages (See pavkages as sub-graphs)
+ 	* Filter domain classes per package ?
+ 	* include package prefix sometimes (such as for all classes not in default package). 
+ * examine on which os jpg+waitFor fails
+ * UI looks awful on IE7 (but who cares :)

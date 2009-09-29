@@ -56,7 +56,7 @@ input:focus, select:focus, textarea:focus {
 
 .body {
     float: left;
-    margin: 0 15px 10px 15px;
+    margin: 0 15px 10px 0px;
 }
 
 /* NAVIGATION MENU */
@@ -67,7 +67,7 @@ input:focus, select:focus, textarea:focus {
     border-style: solid none solid none;	
     margin-top: 0px;
     margin-bottom: 0px;
-    padding: 4px 12px;
+    padding: 4px 4px;
 }
 
 .menuButton {

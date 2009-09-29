@@ -1,0 +1,10 @@
+h1. Install the plugin
+
+{code}grails install-plugin class-diagram [-global]{code} 
+Use the -global flag if you want the class diagram to be available for all your grails projects. 
+
+h1. Install graphviz dot utility
+
+This plugin is dependent on the excellent [graphviz|http://www.graphviz.org] utility. [Download|http://www.graphviz.org/Download.php] and put its bin folder on your path. 
+(Or, alternatively, set the path to the graphviz dot utility in graphviz.dot.executable property, see 'configuration' under the description tab).
+[Graphviz|http://www.graphviz.org] is an excellent open source utility for visualizing graphs that should be part of any programmers toolkit :) 
