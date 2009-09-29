@@ -48,7 +48,7 @@ Backlog
 * Added property for graph orientation: top to bottom or left to right
 * Graphviz 2.24: translates bgcolor:none to black, while prior versions translate to white!
 * (cleaned up CSS a bit)
-* Properties page not initially visible
+* Mad properties page initially invisible
 
 
 Issues
