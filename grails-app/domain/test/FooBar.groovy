@@ -1,6 +1,6 @@
 package test
 
-class FooBar extends Foo {
-	Oner oner
-	String address
+class FooBar extends Bar {
+    MoreFooBar more
+    String address
 }

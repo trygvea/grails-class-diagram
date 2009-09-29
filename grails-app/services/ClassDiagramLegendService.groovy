@@ -4,7 +4,7 @@ class ClassDiagramLegendService {
     
     static transactional = false
 
-    byte[] createLegendImage() {
+    byte[] createLegend() {
         def style = CH.config.classDiagram.legend.style
         def cfg = CH.config.classDiagram.associations
 
@@ -17,6 +17,9 @@ class ClassDiagramLegendService {
 
             rankdir("LR");
             subgraph("cluster_legend") {
+                style.packageStyle.each {
+                    "${it.key}" ("${it.value}")
+                }
 
                 def count = 1
 
@@ -49,7 +52,7 @@ class ClassDiagramLegendService {
                     cfg.arrows.inherits, cfg.arrows.none, cfg.decorators.none, cfg.decorators.none);
             }
 
-        }.createImage("jpg")
+        }.createDiagram("png")
     }
 
     private void buildLegendItem(dotBuilder, int count, String name, String description, String arrowhead, String arrowtail, String headlabel, String taillabel) {
@@ -59,7 +62,7 @@ class ClassDiagramLegendService {
         dotBuilder."${nodeA}" ([label:"a"])
         dotBuilder."${nodeB}" ([label:"b"])
         dotBuilder.from(nodeA).to(nodeB, [label:"${name}", arrowhead:"${arrowhead}", arrowtail:"${arrowtail}", headlabel:"${headlabel}", taillabel:"${taillabel}"])
-        dotBuilder."${legendNode}" ([style:"none", width:"6", penwidth:"0", label:"${description}\\l"])
+        dotBuilder."${legendNode}" ([style:"none", width:"7", penwidth:"0", label:"${description}\\l"])
         dotBuilder.from(nodeB).to(legendNode, [label:"", penwidth:"0", arrowhead:"none"])
     } 
 

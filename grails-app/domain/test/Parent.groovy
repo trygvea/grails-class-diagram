@@ -1,7 +1,7 @@
 package test
 
 class Parent extends AbstractParent {
-	static hasMany = [children: Child, foos: Foo]
-	String name
-	def getFooBarMethod() {}
+    static hasMany = [children: Child, bars: Bar]
+    String name
+    def getFooBarMethod() {}
 }

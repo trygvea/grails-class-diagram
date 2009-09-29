@@ -1,4 +1,4 @@
-import test.Foo
+import test.FooBar
 class RootPackagedClass {
-	Foo foo
+    FooBar fooBar
 }

@@ -1,8 +1,10 @@
 package test
 
 class Many {
-	static belongsTo = Bar
-	static hasMany = [bar:Bar]
-	
-	String ole
+    static belongsTo = Foo
+    static hasMany = [foos:Foo]
+    static embedded = ['embeddedPart']
+
+    EmbeddedPart embeddedPart
+    String string
 }

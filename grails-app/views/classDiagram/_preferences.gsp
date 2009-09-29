@@ -12,8 +12,12 @@
         <g:form name="preferencesForm" method="post" action="model">
 
             <fieldset id="misc_fields" class="">
-                <label for="skin">Skin:</label>
-                <g:select name="skin" value="${prefs?.skin}" from="${skins}" optionKey="key" optionValue="value"></g:select>
+                <ol>
+                    <li title="Changes the appearance of the class diagram. You may override or configure your own in Config.groovy!">
+                        <label for="skin">Skin:</label>
+                        <g:select name="skin" value="${prefs?.skin}" from="${skins}" optionKey="key" optionValue="value"></g:select>
+                    </li>
+                </ol>
             </fieldset>
             
             <fieldset id="show_fields" class="">

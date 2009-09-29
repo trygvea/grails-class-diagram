@@ -83,8 +83,9 @@ classDiagram {
     legend {
         style {
             graphStyle = [bgcolor:"gray94", margin:"0,0", size:"7,7"]
-            nodeStyle = [style:"filled", color:"gray50", fillcolor:"white", margin:"0,0", fontsize:14, fontname:"Verdana"]
-            edgeStyle = [color:"gray50", fontsize:14, fontname:"Verdana"]
+            nodeStyle = [style:"filled", color:"gray50", fillcolor:"white", margin:"0,0", fontsize:15, fontname:"Verdana"]
+            edgeStyle = [color:"gray50", fontsize:15, fontname:"Verdana"]
+            packageStyle = [style:"filled", color:"gray94", fontname:"Verdana"]
         }
     }
 }

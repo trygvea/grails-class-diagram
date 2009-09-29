@@ -1,6 +1,6 @@
 package test
 
 class Child {
-	static belongsTo = [parent:Parent]
-	String name
+    static belongsTo = [parent:Parent]
+    String name
 }

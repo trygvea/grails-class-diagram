@@ -47,10 +47,10 @@ class ClassDiagramController {
     }    
 
     def legend = { ClassDiagramPreferences prefs ->
-        def image = classDiagramLegendService.createLegendImage()
+        def image = classDiagramLegendService.createLegend()
         if (image.length > 0) {
             response.contentLength = image.length
-            response.contentType = mimeTypeFor(prefs.outputFormat?:"png")
+            response.contentType = mimeTypeFor("png")
             response.outputStream << image
         } else {
             // some error occured during image generation

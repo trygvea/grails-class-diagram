@@ -84,7 +84,7 @@
             show: 'blind',
             hide: 'blind',
             position: ['right','bottom'],
-            width: 720,
+            width: 700,
             autoOpen: false,
             buttons: {
                 "Close" : function() {
