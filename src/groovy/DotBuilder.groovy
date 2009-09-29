@@ -17,7 +17,8 @@ class DotBuilder extends BuilderSupport {
     out = new PrintWriter(outTarget)
   }
   
-  protected void setParent(Object parent, Object child) {}
+  protected void setParent(Object parent, Object child) {
+  }
     
   protected Object createNode(Object name) {
     if (name == 'digraph') {
@@ -55,7 +56,8 @@ class DotBuilder extends BuilderSupport {
 	}
   }
     
-  protected void nodeCompleted(Object parent, Object node) {  }
+  protected void nodeCompleted(Object parent, Object node) {
+  }
 
   def to(Object name, Map attributes) {
 	createAssociation(from, name, attributes)

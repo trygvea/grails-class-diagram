@@ -27,13 +27,13 @@ classDiagram {
 		// Note: the following properties have a special meaning and should be changed with care: {shape, fontSize}. 
 		classic {
 			name = "Classic"
-			graphStyle = [bgcolor:"none"]
+			graphStyle = [bgcolor:"white"]
 			nodeStyle = [style:"rounded,filled", color:"blue", fillcolor:"azure2", fontname:"Verdana"]
 			edgeStyle = [color:"gray40", fontname:"Verdana"]
 		}
 		regular {
 			name = "Regular"
-			graphStyle = [bgcolor:"none"]
+			graphStyle = [bgcolor:"white"]
 			nodeStyle = [style:"filled", color:"lightyellow3", fillcolor:"lightyellow", fontname:"Verdana"]
 			edgeStyle = [color:"gray40", fontname:"Verdana"]
 		}
@@ -45,7 +45,7 @@ classDiagram {
 		}
 		gray {
 			name = "Gray"
-			graphStyle = [bgcolor:"none"]
+			graphStyle = [bgcolor:"white"]
 			nodeStyle = [style:"filled", color:"gray40", fillcolor:"gray90", fontname:"Verdana"]
 			edgeStyle = [color:"gray40", fontname:"Verdana"]
 		}

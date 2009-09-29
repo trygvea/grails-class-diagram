@@ -1,6 +1,6 @@
 class ClassDiagramGrailsPlugin {
     // the plugin version
-    def version = "0.3"
+    def version = "0.4"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.1.1 > *"
     // the other plugins this plugin depends on
@@ -13,8 +13,8 @@ class ClassDiagramGrailsPlugin {
 
     // TODO Fill in these fields
     def author = "Trygve Amundsen"
-    def authorEmail = ""
-    def title = "Creates class diagram of Grails domain model"
+    def authorEmail = "trygve.amundsen at gmail.com"
+    def title = "Creates a class diagram from grails domain classes"
     def description = '''\\
 Provides a class diagram of all the domain classes with their properties, methods, 
 associations and inheritance to other domain classes. 

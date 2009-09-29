@@ -1,6 +1,7 @@
-<plugin name='class-diagram' version='0.3' grailsVersion='1.1.1 &gt; *'>
+<plugin name='class-diagram' version='0.4' grailsVersion='1.1.1 &gt; *'>
   <author>Trygve Amundsen</author>
-  <title>Creates class diagram of Grails domain model</title>
+  <authorEmail>trygve.amundsen at gmail.com</authorEmail>
+  <title>Creates a class diagram from grails domain classes</title>
   <description>\
 Provides a class diagram of all the domain classes with their properties, methods, 
 associations and inheritance to other domain classes. 

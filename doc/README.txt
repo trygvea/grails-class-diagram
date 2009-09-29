@@ -44,10 +44,27 @@ Release notes
 Backlog
 -------------------------------------------------------------------------------
 
+0.4 release notes
+* Added property for graph orientation: top to bottom or left to right
+* Graphviz 2.24: translates bgcolor:none to black, while prior versions translate to white!
+* (cleaned up CSS a bit)
+* Properties page not initially visible
+
+
+Issues
+* IE7: Formatting suck. But dont care - who use IE7?
+* DRY on plugin home URL (in ClassDiagramPlugin and in menubar)
+ 
+
+
 0.4 backlog
+* test windows
+* legend should not be loaded before required
+* write one unit test!
+* GUI spinner should be bigger & positioned over the graph, and run all the time!
+
 
 Unassigned
- * GUI spinner should be bigger & positioned over the graph
  * Bad error reporting when user selects unrecognized output format
  * Write some tests. Get rid of domain classes. Add dynamically in test.
  * user should  be able to select domain class subset
@@ -57,4 +74,8 @@ Unassigned
  	* Filter domain classes per package ?
  	* include package prefix sometimes (such as for all classes not in default package). 
  * examine on which os jpg+waitFor fails
+ * Check out graphviz html format for url-enabelling the graph, to add things like
+	- edit code (must set sourcepath first time)
+	- filter out classes
+	? change order 
 

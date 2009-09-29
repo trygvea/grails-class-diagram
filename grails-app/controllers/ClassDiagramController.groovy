@@ -15,11 +15,12 @@ class ClassDiagramController {
 
 	def show = { ClassDiagramPreferences prefs ->
 		bindData(prefs, params)
-		def skins = [:] // Make skin as map<String name, String Description> doe easier   
+		def skins = [:] // skin as [name:description] makes client easier
 		CH.config.classDiagram.skins.each {
 			skins.put(it.key, it.value.name)
 		}
-		[prefs:prefs, skins:skins]
+		def graphOrientations = ["TB":"Top to Bottom", "LR": "Left to Right", "BT": "Bottom to top", "RL": "Right to left"] 
+		[prefs:prefs, skins:skins, graphOrientations: graphOrientations]
 	}
 
 	// ajax request for image template
@@ -97,9 +98,15 @@ class ClassDiagramPreferences {
 	
 	boolean autoUpdate = true
 	boolean randomizeOrder = false
+	String graphOrientation = "TB" // According to graphviz rankdir 
 	int random 
 	
 	def getDeclaredProperties() {
 		properties - ["declaredProperties", "class", "metaClass", "errors"] // Note: uses Map.minus added in plugin
+	}
+	
+	// Groovy bug? If we define method as isVertical..., it will not be part of this class's properties collection
+	def getVerticalOrientation() { 
+		["TB","BT"].any {graphOrientation == it}
 	}
 }

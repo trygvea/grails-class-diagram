@@ -21,7 +21,7 @@
 				<fieldset id="show_fields_inner" class="">
 					<ol>
 						<li>
-				            <label for="showProperties" title="Show or hide properties">
+				            <label for="showProperties" title="Show or hide properties. This includes declared properties together with implicit properties declared with getters and/or setter methods.">
 								<g:checkBox name="showProperties" value="${prefs?.showProperties}" ></g:checkBox>
 								Properties
 							</label>
@@ -35,7 +35,7 @@
 							</fieldset>
 						</li>
 						<li>
-				            <label for="showMethods" title="Show or hide methods">
+				            <label for="showMethods" title="Show or hide methods. Note that property setters and getters are not included!">
 								<g:checkBox name="showMethods" value="${prefs?.showMethods}" ></g:checkBox>
 								Methods
 							</label>
@@ -77,13 +77,17 @@
 			<fieldset id="misc_fields" class="">
 				<ol>
 					<li title="Changes the size of the underlying model image.">
+						<input id="fontsize" name="fontsize" type="hidden" value="${prefs?.fontsize}"/>
 			            <label for="fontsize_slider">Size:</label>
 						<div id="fontsize_slider"></div>
-						<input id="fontsize" name="fontsize" type="hidden" value="${prefs?.fontsize}"/>
 					</li>
 					<li title="Image format, try for instance jpg or png. See http://graphviz.org/doc/info/output.html for valid formats. Not all formats works, but most image types does. Warning: An invalid format may not give a sensible error message!">
 	                    <label for="outputFormat">Output Format:</label>
 						<input type="text" id="outputFormat" name="outputFormat" value="${fieldValue(bean:prefs,field:'outputFormat')}"/>
+					</li>
+					<li title="Graph orientation, or, in graphviz terminology: rankdir">
+	                    <label for="graphOrientation">Orientation:</label>
+						<g:select name="graphOrientation" from="${graphOrientations}" optionKey="key" optionValue="value"></g:select>
 					</li>
 					<li title="Re-order the classes in the diagram. Note: Default ordering will be restored when the diagram is changed.">
 						<input id="randomizeOrder" class="autoUpdate" name="randomizeOrder" type="hidden" value="${prefs?.randomizeOrder}"/>

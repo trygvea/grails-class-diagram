@@ -31,6 +31,7 @@ class ClassDiagramService {
 			graph (skin.graphStyle)
 			node ([shape:"record"] + [fontsize:props.fontsize] + skin.nodeStyle)
 			edge ([fontsize:props.fontsize] + skin.edgeStyle)
+			text ("rankdir=${props.graphOrientation};");
 			
 
 			// build node for any embedded classes. Note: These are not of type GrailsDomainClass
@@ -75,10 +76,11 @@ class ClassDiagramService {
 	 * @return Node label containing class name, properties, methods, and dividers
 	 */
 	private String formatNodeLabel(cls) {
-		return "{"+(cls instanceof GrailsDomainClass ? cls.name : cls.simpleName) +
+		return (props.verticalOrientation ? "{" : "") +
+				(cls instanceof GrailsDomainClass ? cls.name : cls.simpleName) +
 		 		formatProperties(cls) +
 		 		formatMethods(cls) +
-		 		"}"
+		 		(props.verticalOrientation ? "}" : "")
 	}
 
 	private String formatProperties(cls) {

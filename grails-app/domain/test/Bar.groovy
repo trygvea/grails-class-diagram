@@ -10,6 +10,12 @@ class Bar {
 	Child child
 	String description
 
+	def getPropertyDeclaredAsGetterMethod() {
+		"foo"
+	}
+	def getNotAProperty(String param) {
+		"foo"
+	}
 	def didit(a,b,c) {
 		return "ohyeah"
 	}

@@ -82,7 +82,7 @@
 		    hide: 'blind',
 		    position: 'top',
 		    width: 350,
-		    autoOpen: true,
+		    autoOpen: false,
 			buttons: {
 				"Update": function(e) {
 		            update_preferences(e);
