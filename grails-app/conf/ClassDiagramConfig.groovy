@@ -53,7 +53,7 @@ classDiagram {
         }
         classicSpaced {
             name = "Classic Spaced"
-            graphStyle = [bgcolor:"white", mclimit:100, nodesep:'0.75 equally', ranksep:'0.75 equally']
+            graphStyle = [bgcolor:"white", mclimit:100, nodesep:'1.5 equally', ranksep:'2 equally']
             nodeStyle = [style:"rounded,filled", color:"blue", fillcolor:"azure2", fontname:"Verdana", fontsize:18]
             edgeStyle = [color:"gray40", fontname:"Verdana", fontsize:18, labelfontsize:20, labeldistance:3.5]
             packageStyle = [style:"rounded,filled", color:"gray95"]
