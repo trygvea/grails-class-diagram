@@ -1,3 +1,47 @@
+h1. The ClassDiagram plugin 
+
+The ClassDiagram plugin provides an UML-like diagram of your grails domain classes.
+
+
+
+h1. Usage
+After installation, a class diagram of our domain classes should be available under [http://localhost:8080/yourApp/classDiagram]:
+
+!screenshots-516/classDiagramDefault.png! 
+
+
+
+h1. Changing diagram preferences
+
+You can change your diagram preferences in the preferences dialog:
+
+!description-516/preferences.png! 
+
+
+Here you can set how much of your properties, methods etc. that you will see.
+As an example, check the 'Show: Packages' box to group classes in packages:
+
+!description-516/classDiagramPackage.png! 
+
+
+h1. Legend 
+
+The following relations are recognized:
+
+!screenshots-516/legend.jpg!
+
+
+
+h1. Configuration file
+
+You may change diagram preferences defaults in your projects configuration file (Config.groovy). 
+Yo can also change diagram appearance (such as colors and node/edge shapes), and you may create your own skins. You also can change most graphviz attributes. 
+
+If you don't want to clutter your Config.groovy file, you can change the plugin configruation in stead. If the plugin is installed globally you will find it exploded under something like ~/.grails/1.1.1/global-plugins/grails-class-diagram-0.1/conf/ClassDiagramConfig.groovy.
+
+Below follows a copy of the plugins config. Just pick the properties you want to change and add it to your Config.groovy. 
+{code}
+
 /**
  * Default properties. May be overridden in Config.properties for each project
  */
@@ -53,7 +97,7 @@ classDiagram {
         }
         classicSpaced {
             name = "Classic Spaced"
-            graphStyle = [bgcolor:"white", mclimit:100, nodesep:'1.5 equally', ranksep:'2 equally']
+            graphStyle = [bgcolor:"white", mclimit:100, nodesep:'0.75 equally', ranksep:'0.75 equally']
             nodeStyle = [style:"rounded,filled", color:"blue", fillcolor:"azure2", fontname:"Verdana", fontsize:18]
             edgeStyle = [color:"gray40", fontname:"Verdana", fontsize:18, labelfontsize:20, labeldistance:3.5]
             packageStyle = [style:"rounded,filled", color:"gray95"]
@@ -89,3 +133,38 @@ classDiagram {
         }
     }
 }
+{code}
+
+
+
+h1. Credits
+
+Thanks to Merlyn Albery-Speyer's blogs on the subject. The "DotBuilder":http://curious-attempt-bunny.blogspot.com/2008/06/graphviz-dabbling-with-groovy-builders.html was based on his idea.
+Also thanks to Frank Schoep for his "blog":http://www.ffnn.nl/pages/articles/media/uml-diagrams-using-graphviz-dot.php on UML diagrams using graphviz.
+And of course thanks to the people behind the fantastic graphviz utility.
+
+
+
+h1. Release notes
+
+0.1 Initial release
+
+0.2 Bugfix. Removed domain classes in sub-packages when packaging plugin.  
+
+0.3 Brush-up. Added support for embedded objects, provided a GUI for changing
+	properties, re-ordering
+
+0.4 Fixes & Features. Classes can now be shown grouped in packages. 
+    Default preferences configurable. Some bugfixes (see svn).
+
+
+h1. Backlog
+
+0.5 backlog
+* Fontsize slider should override fontsize preferences. Multiple fontsize sliders (node, edge, package). 
+* Better enum support. Enums now outside packages
+* editable combobox on outputFormat
+* user should  be able to select domain class subset
+* Extend diagram to non-domain classes (services, controllers, etc. etc.) 
+
+

@@ -1,6 +1,7 @@
+import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
 class ClassDiagramGrailsPlugin {
     // the plugin version
-    def version = "0.3"
+    def version = "0.4"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.1.1 > *"
     // the other plugins this plugin depends on
@@ -11,10 +12,9 @@ class ClassDiagramGrailsPlugin {
             "grails-app/domain/**"
     ]
 
-    // TODO Fill in these fields
     def author = "Trygve Amundsen"
-    def authorEmail = ""
-    def title = "Creates class diagram of Grails domain model"
+    def authorEmail = "trygve.amundsen at gmail.com"
+    def title = "Creates a class diagram from grails domain classes"
     def description = '''\\
 Provides a class diagram of all the domain classes with their properties, methods, 
 associations and inheritance to other domain classes. 
@@ -24,24 +24,28 @@ The excellent utility graphviz (http://www.graphviz.org/) is used for diagram la
     // URL to the plugin's documentation
     def documentation = "http://grails.org/plugin/class-diagram"
 
+    def doWithSpring = { 
+        // Merge config early. Note that it's too late in doWithApplicationContext because grails artifacts are already loaded  
+        mergeConfig(application.config, 'ClassDiagramConfig')
+
+        // this one may be added in groovy 1.7 (see GROOVY-644)
+        Map.metaClass.minus = { keys ->
+            delegate.findAll {!keys.contains(it.key)}
+        }        
+    }
+    
     def doWithApplicationContext = { ctx ->
-		// this one may be added in groovy 1.7 (see GROOVY-644)
-		Map.metaClass.minus = { keys ->
-		    delegate.findAll {!keys.contains(it.key)}
-		}		
-		// Just a convenience method. Note that ConfigObject is a map of maps unless it is flattened
-		ConfigObject.metaClass.mergeNoReplace = { other ->
-			other.merge(delegate)
-			delegate.merge(other)
-		}
-
-		// Load default properties from ClassDiagramConfig
-		GroovyClassLoader classLoader = new GroovyClassLoader(getClass().getClassLoader())
-		ConfigObject classDiagramConfig = new ConfigSlurper().parse(classLoader.loadClass('ClassDiagramConfig'))
-
-		// Allow plugin user to change properties in Config.groovy 
-		application.config.mergeNoReplace(classDiagramConfig)
-		
+    }
+    
+    private def mergeConfig(applicationConfig, String otherConfigName) {
+        ConfigObject.metaClass.mergeNoReplace = { other ->
+            other.merge(delegate)
+            delegate.merge(other)
+        }
+        GroovyClassLoader classLoader = new GroovyClassLoader(getClass().getClassLoader())
+        ConfigObject otherConfig = new ConfigSlurper().parse(classLoader.loadClass(otherConfigName))
+        // Should allow plugin user to change individual properties in Config.groovy:
+        applicationConfig.mergeNoReplace(otherConfig)
     }
 
 }

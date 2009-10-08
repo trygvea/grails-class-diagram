@@ -1,12 +1,10 @@
 
 /* common *********************/
 form legend {
-  display: inline-block;
   padding: 0 2px;
   font-weight: bold;
 }
 form label  {
-  display: inline-block;
   line-height: 1.8;
   vertical-align: top;
   float: left;
@@ -52,14 +50,10 @@ form fieldset fieldset {
 }
 
 form fieldset fieldset legend {
-  display: inline-block;
   padding: 0 0 5px;
   font-weight: normal;
 }
 form fieldset fieldset label {
-  display: inline;
-  width: auto;
-
   float: none;
   text-align:right;
   width:30%;
@@ -74,22 +68,16 @@ form fieldset fieldset li {
 form fieldset fieldset fieldset {
   margin: 0 0 0 19px; 
   padding: 0;
-  display: inline;
-  width: auto;
 }
 form fieldset fieldset fieldset label {
   padding: 0;
-  display: inline;
-  width: auto;
 }
 
 .ui-slider {
-  display: inline-block;
   vertical-align: top;
   width: 200px; /* Width of labels */
 
   float: left;
-  text-align:right;
   margin-right:0.4em;
   margin-top:0.5em;
   margin-bottom:0.6em;

@@ -1,6 +1,7 @@
-<plugin name='class-diagram' version='0.3' grailsVersion='1.1.1 &gt; *'>
+<plugin name='class-diagram' version='0.4' grailsVersion='1.1.1 &gt; *'>
   <author>Trygve Amundsen</author>
-  <title>Creates class diagram of Grails domain model</title>
+  <authorEmail>trygve.amundsen at gmail.com</authorEmail>
+  <title>Creates a class diagram from grails domain classes</title>
   <description>\
 Provides a class diagram of all the domain classes with their properties, methods, 
 associations and inheritance to other domain classes. 
@@ -9,16 +10,20 @@ The excellent utility graphviz (http://www.graphviz.org/) is used for diagram la
   <documentation>http://grails.org/plugin/class-diagram</documentation>
   <resources>
     <resource>ClassDiagramConfig</resource>
+    <resource>Config</resource>
     <resource>UrlMappings</resource>
     <resource>ClassDiagramController</resource>
+    <resource>RootPackagedClass</resource>
     <resource>test.AbstractParent</resource>
     <resource>test.Bar</resource>
     <resource>test.Child</resource>
     <resource>test.Foo</resource>
     <resource>test.FooBar</resource>
     <resource>test.Many</resource>
-    <resource>test.Oner</resource>
+    <resource>test.MoreFooBar</resource>
     <resource>test.Parent</resource>
+    <resource>test.subpackage.SimpleClass1</resource>
+    <resource>test.subpackage.SimpleClass2</resource>
     <resource>ClassDiagramLegendService</resource>
     <resource>ClassDiagramService</resource>
   </resources>

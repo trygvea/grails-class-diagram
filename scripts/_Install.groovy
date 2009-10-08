@@ -12,5 +12,5 @@ try {
 	"dot -V".execute().text
 } catch (IOException ex){
 	// TODO this exception doesnt make install fail
-	throw new RuntimeException("Graphviz not installed. Install from http://graphviz.org/download", ex) 
+	throw new RuntimeException("Graphviz not on path. Install from http://graphviz.org/download", ex) 
 }
