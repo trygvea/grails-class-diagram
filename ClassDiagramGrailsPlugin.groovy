@@ -26,7 +26,10 @@ The excellent utility graphviz (http://www.graphviz.org/) is used for diagram la
 
     def doWithSpring = { 
         // Merge config early. Note that it's too late in doWithApplicationContext because grails artifacts are already loaded  
-        mergeConfig(application.config, 'ClassDiagramConfig')
+        GroovyClassLoader classLoader = new GroovyClassLoader(getClass().getClassLoader())
+        ConfigObject classDiagramConfig = new ConfigSlurper().parse(classLoader.loadClass('ClassDiagramConfig'))
+        classDiagramConfig.merge(application.config)
+        application.config.merge(classDiagramConfig)
 
         // this one may be added in groovy 1.7 (see GROOVY-644)
         Map.metaClass.minus = { keys ->
@@ -35,17 +38,6 @@ The excellent utility graphviz (http://www.graphviz.org/) is used for diagram la
     }
     
     def doWithApplicationContext = { ctx ->
-    }
-    
-    private def mergeConfig(applicationConfig, String otherConfigName) {
-        ConfigObject.metaClass.mergeNoReplace = { other ->
-            other.merge(delegate)
-            delegate.merge(other)
-        }
-        GroovyClassLoader classLoader = new GroovyClassLoader(getClass().getClassLoader())
-        ConfigObject otherConfig = new ConfigSlurper().parse(classLoader.loadClass(otherConfigName))
-        // Should allow plugin user to change individual properties in Config.groovy:
-        applicationConfig.mergeNoReplace(otherConfig)
     }
 
 }
