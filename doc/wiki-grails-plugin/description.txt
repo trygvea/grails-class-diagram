@@ -174,5 +174,5 @@ h1. Release notes
 
 
 h1. Backlog
-See "JIRA":http://jira.codehaus.org/browse/GRAILSPLUGINS/component/14031
+See "JIRA":http://jira.codehaus.org/browse/GRAILSPLUGINS/component/14031 for the official backlog and doc/NOTES.txt for details and crazy ideas.
 
