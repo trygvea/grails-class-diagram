@@ -231,7 +231,7 @@ class ClassDiagramService {
         methods.each { method ->
             ["get","is","set","addTo","removeFrom"].each { prefix ->
                 propertyNames.each{ propertyName ->
-                    if (method.name == prefix+propertyName[0].toUpperCase()+propertyName[1..-1]) {
+                    if (method.name == prefix+initCap(propertyName)) {
                         // TODO: Filter by signature, not just name 
                         filterMethods += method
                     }
@@ -247,7 +247,11 @@ class ClassDiagramService {
         return methods
     }
     
-
+    // There may be a String method for this, but I didnt find it :) 
+    private initCap(String s) {
+        s ? s[0].toUpperCase() + (s.size() > 1 ? s[1..-1] : '') : s
+    }
+    
     /**
      * @returns true if the methods has the same signature, without looking at the class name. 
      */
