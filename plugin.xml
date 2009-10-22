@@ -9,23 +9,26 @@ The excellent utility graphviz (http://www.graphviz.org/) is used for diagram la
 </description>
   <documentation>http://grails.org/plugin/class-diagram</documentation>
   <resources>
-    <resource>ClassDiagramLegendService</resource>
-    <resource>ClassDiagramService</resource>
     <resource>ClassDiagramConfig</resource>
-    <resource>UrlMappings</resource>
     <resource>Config</resource>
+    <resource>UrlMappings</resource>
     <resource>ClassDiagramController</resource>
-    <resource>test.subpackage.SimpleClass1</resource>
-    <resource>test.subpackage.SimpleClass2</resource>
+    <resource>RootPackagedClass</resource>
     <resource>test.AbstractParent</resource>
-    <resource>test.MoreFooBar</resource>
-    <resource>test.FooBar</resource>
+    <resource>test.Bar</resource>
     <resource>test.Child</resource>
     <resource>test.Foo</resource>
-    <resource>test.Bar</resource>
+    <resource>test.FooBar</resource>
     <resource>test.Many</resource>
+    <resource>test.MoreFooBar</resource>
     <resource>test.Parent</resource>
-    <resource>RootPackagedClass</resource>
+    <resource>test.subpackage.SimpleClass1</resource>
+    <resource>test.subpackage.SimpleClass2</resource>
+    <resource>ClassDiagramLegendService</resource>
+    <resource>ClassDiagramService</resource>
   </resources>
-  <dependencies />
+  <dependencies>
+    <resolvers />
+  </dependencies>
+  <behavior />
 </plugin>
