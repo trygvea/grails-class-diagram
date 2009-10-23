@@ -122,10 +122,10 @@ class ClassDiagramService {
         def arrowtail = ass.embedded ? cfg.arrows.embedded : ass.owningSide ? cfg.arrows.belongsTo : cfg.arrows.none
         def headlabel = ass.oneToMany || ass.manyToMany ? cfg.decorators.hasMany  : cfg.decorators.hasOne
         def taillabel = !ass.bidirectional ? cfg.decorators.none : ass.manyToOne || ass.manyToMany ? cfg.decorators.hasMany  : cfg.decorators.hasOne
-        def label = prefs?.showAssociationNames ? ass.name : ""
+        def label = prefs?.showAssociationNames ? ass.bidirectional ? ass.otherSide.name + " / " + ass.name : ass.name : ""
         [label:label, arrowhead:arrowhead, arrowtail:arrowtail, headlabel:headlabel, taillabel:taillabel]
     }
-
+		
     /**
      * @return Node label containing class name, properties, methods, and dividers
      */
