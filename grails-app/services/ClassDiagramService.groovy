@@ -92,7 +92,7 @@ class ClassDiagramService {
     }
     
     /**
-     * Order the domain classes according to preferneces
+     * Order the domain classes according to preferences
      */
     private List orderDomain(domainClasses, prefs) {
         if (prefs.randomizeOrder) {
@@ -103,7 +103,7 @@ class ClassDiagramService {
     }
     
     /**
-     * Order package names according to preferneces
+     * Order package names according to preferences
      */
     private List orderPackageNames(packageNames, prefs) {
         if (prefs.randomizeOrder) {
@@ -218,8 +218,8 @@ class ClassDiagramService {
     
     /**
      * Get methods declared in a class, filtering out all inherited and meta-added stuff.
-     * Quite a few assumptions are made, no satisfactiory solution found. Hack!
-     * The getDeclaredMethods() also includes decorated methods, which makes it essentialy useless. 
+     * Quite a few assumptions are made, no satisfactory solution found. Hack!
+     * The getDeclaredMethods() also includes decorated methods, which makes it essentially useless. 
      * I think we need a new getUndecoratedDeclaredMethods() that gives us what we really coded in the class. 
      */
     private getDeclaredMethods(methods, propertyNames) {
