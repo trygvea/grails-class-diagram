@@ -147,6 +147,10 @@ And of course thanks to the people behind the fantastic graphviz utility.
 
 h1. Release notes
 
+0.4.1 Fixes
+ * GRAILSPLUGINS-1607: java.lang.StringIndexOutOfBoundsException for 1-char-long property names.
+ * GRAILSPLUGINS-1583: Show association name from both directions
+  
 0.4 Fixes & Features. 
  * GRAILSPLUGINS-1559: WAR-packaged application fails to start if deployed with Class diagram plugin
  * Default preferences configurable. 
