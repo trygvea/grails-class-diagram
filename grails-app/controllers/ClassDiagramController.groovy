@@ -98,6 +98,7 @@ class ClassDiagramPreferences {
     boolean showMethodSignature = defaults.showMethodSignature
     boolean showPropertyType = defaults.showPropertyType
     boolean showEmbeddedAsProperty = defaults.showEmbeddedAsProperty
+    boolean showEnumAsProperty = defaults.showEnumAsProperty
     boolean showPackages = defaults.showPackages
 
     def classNamesToShow = []

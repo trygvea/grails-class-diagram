@@ -75,6 +75,12 @@
                             </label>
                         </li>
                         <li>
+                            <label for="showEnumAsProperty" title="Show enums as properties in the containing class. Uncheck to see enums as first class objects.">
+                                <g:checkBox name="showEnumAsProperty" value="${prefs?.showEnumAsProperty}" ></g:checkBox>
+                                Enums as Property
+                            </label>
+                        </li>
+                        <li>
                             <label for="showPackages" title="Show classes grouped in packages.">
                                 <g:checkBox name="showPackages" value="${prefs?.showPackages}" ></g:checkBox>
                                 Packages

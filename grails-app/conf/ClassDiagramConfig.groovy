@@ -18,6 +18,7 @@ classDiagram {
             showMethodSignature = false
             showPropertyType = true
             showEmbeddedAsProperty = false
+            showEnumAsProperty = true
             showPackages = false
             autoUpdate = true
             graphOrientation = "TB" // See http://www.graphviz.org/doc/info/attrs.html#k:rankdir for valid values

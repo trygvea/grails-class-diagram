@@ -13,32 +13,34 @@ class ClassDiagramService {
     byte[] createDiagram(domainClasses, prefs) {
         def skin = CH.config.classDiagram.skins?."${prefs.skin}"
         
-        domainClasses = orderDomain(domainClasses, prefs)
+        domainClasses = randomizeOrder(domainClasses, prefs)
 
         def dotBuilder = new DotBuilder()
         dotBuilder.digraph {
-            // build default node and edge styles
-            graph (skin.graphStyle)
-            node ([shape:"record"] + [fontsize:prefs.fontsize] + skin.nodeStyle)
-            edge ([fontsize:prefs.fontsize] + skin.edgeStyle)
-            rankdir ("${prefs.graphOrientation}");
+            buildGraphDefaults(dotBuilder, skin, prefs)
+            rankdir ("${prefs.graphOrientation}")
 
             def embeddedClasses = domainClasses*.properties.flatten().findAll { it.embedded }.type.unique()
+            def enumClasses = domainClasses*.properties.flatten().findAll { it.enum }.type.unique()
+
             if (!prefs.showPackages) {
                 buildDomainClasses(dotBuilder, domainClasses, prefs)
                 buildEmbeddedClasses(dotBuilder, embeddedClasses, prefs)
-            } else {
-                // build domain classes per package
-                def allPackageNames = domainClasses.collect {it.packageName}.unique()
+                buildEnumClasses(dotBuilder, enumClasses, prefs)
 
-                // Find embedded classes in other packages than domain classes
+            } else { // build domain classes per package
+                
+                def allPackageNames = domainClasses.collect {getPackageName(it)} as Set
                 if (!prefs.showEmbeddedAsProperty) {
-                     def embeddedClassPackages = embeddedClasses.collect {it.package?.name}.unique()
-                    allPackageNames += embeddedClassPackages
-                    allPackageNames.unique()
+                    // embedded classes may exist in other packages than domain classes
+                    allPackageNames += embeddedClasses.collect {getPackageName(it)}.unique()
+                }
+                if (!prefs.showEnumAsProperty) {
+                    // enum classes may exist in other packages than domain classes
+                    allPackageNames += enumClasses.collect {getPackageName(it)}.unique()
                 }
                 
-                allPackageNames = orderPackageNames(allPackageNames, prefs)
+                allPackageNames = randomizeOrder(allPackageNames, prefs)
 
                 allPackageNames.each { packageName ->
                     subgraph("cluster_"+packageName) {
@@ -49,8 +51,9 @@ class ClassDiagramService {
                         labeljust("l")
                         label ("${packageName ?: '<root>'}")
 
-                        buildDomainClasses(dotBuilder, domainClasses.findAll{ it.packageName == packageName}, prefs)
-                        buildEmbeddedClasses(dotBuilder, embeddedClasses.findAll {it.package?.name == packageName}, prefs)
+                        buildDomainClasses(dotBuilder, domainClasses.findAll{ getPackageName(it) == packageName}, prefs)
+                        buildEmbeddedClasses(dotBuilder, embeddedClasses.findAll {getPackageName(it) == packageName}, prefs)
+                        buildEnumClasses(dotBuilder, enumClasses.findAll {getPackageName(it) == packageName}, prefs)
                     }
                 }
             }
@@ -61,10 +64,33 @@ class ClassDiagramService {
         dotBuilder.createDiagram(prefs.outputFormat?:"png")
     }
 
+    private void buildGraphDefaults(dotBuilder, skin, prefs) {
+        dotBuilder.graph (skin.graphStyle)
+        dotBuilder.node ([shape:"record"] + [fontsize:prefs.fontsize] + skin.nodeStyle)
+        dotBuilder.edge ([fontsize:prefs.fontsize] + skin.edgeStyle)
+    }
+
+    private String getPackageName(cls) {
+        // Name of root package is inconsistent  
+        if (cls instanceof GrailsDomainClass) {
+            cls.packageName == "" ? "<root>" : cls.packageName
+        } else {
+            cls.package?.name ?: "<root>"
+        }
+    }
+    
     private void buildEmbeddedClasses(dotBuilder, embeddedClasses, prefs) {
         if (!prefs.showEmbeddedAsProperty) {
             embeddedClasses.each { embeddedClass ->
                 dotBuilder."${embeddedClass.simpleName}" ([label:formatNodeLabel(embeddedClass, prefs)])
+            }
+        }
+    }
+
+    private void buildEnumClasses(dotBuilder, enumClasses, prefs) {
+        if (!prefs.showEnumAsProperty) {
+            enumClasses.each { enumClass ->
+                dotBuilder."${enumClass.simpleName}" ([label:formatNodeLabel(enumClass, prefs)])
             }
         }
     }
@@ -105,12 +131,14 @@ class ClassDiagramService {
     /**
      * Order package names according to preferences
      */
-    private List orderPackageNames(packageNames, prefs) {
+    private Collection randomizeOrder(coll, prefs) {
         if (prefs.randomizeOrder) {
-            packageNames = packageNames as List
-            Collections.shuffle(packageNames)
+            def list = coll as List
+            Collections.shuffle(list)
+            return list
+        } else {
+            return coll
         }
-        packageNames
     }
     
     /**
@@ -119,13 +147,13 @@ class ClassDiagramService {
     private getAssociationProps(ass, prefs) {
         def cfg = CH.config.classDiagram.associations
         def arrowhead = !ass.bidirectional ? cfg.arrows.references : cfg.arrows.none
-        def arrowtail = ass.embedded ? cfg.arrows.embedded : ass.owningSide ? cfg.arrows.belongsTo : cfg.arrows.none
+        def arrowtail = ass.embedded || ass.enum ? cfg.arrows.embedded : ass.owningSide ? cfg.arrows.belongsTo : cfg.arrows.none
         def headlabel = ass.oneToMany || ass.manyToMany ? cfg.decorators.hasMany  : cfg.decorators.hasOne
         def taillabel = !ass.bidirectional ? cfg.decorators.none : ass.manyToOne || ass.manyToMany ? cfg.decorators.hasMany  : cfg.decorators.hasOne
         def label = prefs?.showAssociationNames ? ass.bidirectional ? ass.otherSide.name + " / " + ass.name : ass.name : ""
         [label:label, arrowhead:arrowhead, arrowtail:arrowtail, headlabel:headlabel, taillabel:taillabel]
     }
-		
+        
     /**
      * @return Node label containing class name, properties, methods, and dividers
      */
@@ -140,7 +168,11 @@ class ClassDiagramService {
     private String formatProperties(cls, prefs) {
         if (prefs?.showProperties) {
             def label = "|" 
-            label += getInterestingProperties(cls, prefs).collect {formatProperty(it, prefs)}.join("\\l")
+            if (cls instanceof Class && cls.enum) {
+                label += getInterestingProperties(cls, prefs).collect {formatEnumProperty(it, prefs)}.join("\\l")
+            } else { 
+                label += getInterestingProperties(cls, prefs).collect {formatProperty(it, prefs)}.join("\\l")
+            }
             label += "\\l" // get weird formatting without this one
             return label
         } else {
@@ -156,6 +188,10 @@ class ClassDiagramService {
         }
     }
 
+    private String formatEnumProperty(property, prefs) {
+        property.name
+    }
+    
     private String formatMethods(cls, prefs) {
         if (prefs?.showMethods) {
             def label = "|" 
@@ -176,23 +212,32 @@ class ClassDiagramService {
     private getInterestingProperties(cls, prefs) {
         if (cls instanceof GrailsDomainClass) {
             cls.properties.findAll { prop ->
-                !["id","version"].contains(prop.name) && 
-                (!prop.association || (prop.embedded && prefs.showEmbeddedAsProperty)) &&
+                !(prop.name in ["id","version"]) && 
+                (!(prop.embedded && !prefs.showEmbeddedAsProperty)) &&
+                (!(prop.enum && !prefs.showEnumAsProperty)) &&
                 (!prop.inherited)
             }
-        } else {
+        } else if (cls.enum) {
             cls.declaredFields.findAll { field ->
                 !field.name.startsWith("\$") && 
                 !field.name.startsWith("__") && 
-                !["metaClass"].contains(field.name)
+                !(field.name in ["metaClass", "MAX_VALUE", "MIN_VALUE"]) &&
+                !field.name.startsWith("array\$\$") 
+            }
+        } else { // Assume regular java class
+            cls.declaredFields.findAll { field ->
+                !field.name.startsWith("\$") && 
+                !field.name.startsWith("__") && 
+                !(field.name in ["metaClass"])
             }
         }
     }
 
     private getInterestingAssociations(GrailsDomainClass domainClass, prefs) {
         domainClass.properties.findAll { prop ->
-            prop.association && // All associations
+            (prop.association || prop.enum) && // All associations and enums
             !(prop.embedded && prefs.showEmbeddedAsProperty) && // except embedded if not configured so
+            !(prop.enum && prefs.showEnumAsProperty) && // except enums if not configured so
             !prop.inherited && // except inherited stuff
             !(prop.bidirectional && domainClass.name > prop.referencedDomainClass.name) // bidirectionals should only be mapped once  
         }
@@ -209,7 +254,12 @@ class ClassDiagramService {
             def propertyNames = cls.properties*.name
             propertyNames += ["id","version", "hasMany", "belongsTo", "mappedBy", "mapping", "constraints", "embedded"] 
             getDeclaredMethods(methods, propertyNames)
-        } else { // Assume regular java class 
+        } else if (cls.enum) { 
+            def methods = cls.declaredMethods
+            methods -= methods.findAll { it.name in ["valueOf", "values", "next", "previous"]} // Removed even if overridden
+            def propertyNames = cls.declaredFields*.name
+            getDeclaredMethods(methods, propertyNames)
+        } else { // Assume regular java class
             def methods = cls.declaredMethods
             def propertyNames = cls.declaredFields*.name
             getDeclaredMethods(methods, propertyNames)
@@ -219,8 +269,8 @@ class ClassDiagramService {
     /**
      * Get methods declared in a class, filtering out all inherited and meta-added stuff.
      * Quite a few assumptions are made, no satisfactory solution found. Hack!
-     * The getDeclaredMethods() also includes decorated methods, which makes it essentially useless. 
-     * I think we need a new getUndecoratedDeclaredMethods() that gives us what we really coded in the class. 
+     * The Class.getDeclaredMethods() also includes decorated methods, which makes it essentially useless. 
+     * I think we need a grails getUndecoratedDeclaredMethods() that gives us what we really coded in the class, if that is possible. 
      */
     private getDeclaredMethods(methods, propertyNames) {
         def filterMethods = methods.findAll { it.name =~ /\$/} // remove special methods containing $ 
