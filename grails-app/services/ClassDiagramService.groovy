@@ -135,7 +135,7 @@ class ClassDiagramService {
      */
     private getAssociationProps(ass, prefs) {
         def cfg = CH.config.classDiagram.associations
-        def arrowhead = !ass.bidirectional ? cfg.arrows.references : cfg.arrows.none
+        def arrowhead = !ass.bidirectional ? cfg.arrows.references : (!ass.owningSide && ass.otherSide.owningSide) ? cfg.arrows.belongsTo : cfg.arrows.none
         def arrowtail = ass.embedded || ass.enum ? cfg.arrows.embedded : ass.owningSide ? cfg.arrows.belongsTo : cfg.arrows.none
         def headlabel = ass.oneToMany || ass.manyToMany ? cfg.decorators.hasMany  : cfg.decorators.hasOne
         def taillabel = !ass.bidirectional ? cfg.decorators.none : ass.manyToOne || ass.manyToMany ? cfg.decorators.hasMany  : cfg.decorators.hasOne
