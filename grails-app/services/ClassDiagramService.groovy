@@ -118,17 +118,6 @@ class ClassDiagramService {
     }
     
     /**
-     * Order the domain classes according to preferences
-     */
-    private List orderDomain(domainClasses, prefs) {
-        if (prefs.randomizeOrder) {
-            domainClasses = domainClasses as List
-            Collections.shuffle(domainClasses)
-        }
-        domainClasses
-    }
-    
-    /**
      * Order package names according to preferences
      */
     private Collection randomizeOrder(coll, prefs) {
@@ -189,7 +178,11 @@ class ClassDiagramService {
     }
 
     private String formatEnumProperty(property, prefs) {
-        property.name
+        if (property.type != property.declaringClass) {
+            formatProperty(property, prefs)
+        } else {
+            property.name
+        }
     }
     
     private String formatMethods(cls, prefs) {
