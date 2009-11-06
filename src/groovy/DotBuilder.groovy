@@ -19,6 +19,7 @@ class DotBuilder extends BuilderSupport {
     private def out
     private def outTarget
     private def from
+    private boolean directional
 
     DotBuilder() {
         outTarget = new StringWriter()
@@ -29,11 +30,13 @@ class DotBuilder extends BuilderSupport {
     }
 
     protected Object createNode(Object name) {
-        if (name == 'digraph') {
-            return this
+        if (name in ['graph', 'digraph']) {
+            directional = (name == 'digraph')
+            out.println "$name {"
+            return name
         } else {
-            from = name
-            return this
+            out.println "${formatName(name)};"
+            return name
         }
     }
     
@@ -43,19 +46,18 @@ class DotBuilder extends BuilderSupport {
             return this
         } else if (name == 'subgraph') {
             out.println "$name \"$value\" {"
-            return "subgraph"
+            return name
         } else if (name == 'text') {
             out.println value
+            return name
         } else {
-            out.println "$name=\"$value\";"
+            out.println "${formatName(name)}=\"$value\";"
+            return name
         }
     }
 
     protected Object createNode(Object name, Map attributes) {
-        if (name =~ /\s/) { // contains whitespace
-            name = "\"$name\""
-        }
-        out.println "$name ${formatAttributes(attributes)};"
+        out.println "${formatName(name)} ${formatAttributes(attributes)};"
     }
       
     protected Object createNode(Object name, Map attributes, Object value) {
@@ -68,8 +70,11 @@ class DotBuilder extends BuilderSupport {
     }
 
     protected void nodeCompleted(Object parent, Object node) {
-        if (node == "subgraph") {
-            out.println("}")
+        if (node in ['graph', 'digraph']) {
+            out.println('}')
+            outTarget.flush()
+        } else if (node in ['subgraph']) {
+            out.println('}')
         }
     }
 
@@ -80,19 +85,18 @@ class DotBuilder extends BuilderSupport {
     }  
 
     def to(Object name) {
-        out.println """"$from" -> "$name";"""
+        createAssociation(from, name)
         from = name // chain to's
         return this
     }  
 
     String getDotString() {
-        outTarget.flush()
-        "digraph G { $outTarget }"
+        outTarget
     }
     
-    def createDiagram(outputFormat) {
-        def graph = dotString
-        log.debug "Graphviz dot:\n"+graph  
+    byte[] createDiagram(String outputFormat) {
+        String dot = dotString
+        log.debug "Graphviz dot:\n"+dot  
         def p
         try {
             def dotExe = CH.config.graphviz.dot.executable
@@ -102,7 +106,7 @@ class DotBuilder extends BuilderSupport {
         } 
 
         p.outputStream.withStream { stream ->
-            stream << graph
+            stream << dot
         }
 
         //    p.waitFor() // seems to hang on certain formats/os combinations (such as jpg/mac)
@@ -111,13 +115,31 @@ class DotBuilder extends BuilderSupport {
         buf.toByteArray()
     }
 
+    private String formatName(name) {
+        if (name =~ /\s/) { // contains whitespace
+            "\"$name\""
+        } else {
+            name
+        }
+    }
+
     private String formatAttributes(attributes) {
         """[${attributes.collect { "$it.key=\"$it.value\"" }.join(", ")}]"""
     }
 
-    private createAssociation(from, to, attributes) {
-        out.println """"$from" -> "$to" ${formatAttributes(attributes)};"""
+    private createAssociation(from, to) {
+        createAssociation(from, to, null)
     }
+
+    private createAssociation(from, to, attributes) {
+        out.print "${formatName(from)} ${connect()} ${formatName(to)}"
+        out.println attributes ? " ${formatAttributes(attributes)};" : ";"
+    }
+    
+    private String connect() {
+        directional ? "->" : "-"
+    }
+
 
 
 }

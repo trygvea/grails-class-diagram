@@ -11,6 +11,11 @@ class ClassDiagramService {
     static transactional = false
 
     byte[] createDiagram(domainClasses, prefs) {
+        def dotBuilder = createDotDiagram(domainClasses, prefs)
+        dotBuilder.createDiagram(prefs.outputFormat?:"png")
+    }
+    
+    DotBuilder createDotDiagram(domainClasses, prefs) {
         def skin = CH.config.classDiagram.skins?."${prefs.skin}"
         
         domainClasses = randomizeOrder(domainClasses, prefs)
@@ -59,11 +64,10 @@ class ClassDiagramService {
             }
 
             buildRelations(dotBuilder, domainClasses, prefs)
-
         }
-        dotBuilder.createDiagram(prefs.outputFormat?:"png")
+        dotBuilder
     }
-
+    
     private void buildGraphDefaults(dotBuilder, skin, prefs) {
         dotBuilder.graph (skin.graphStyle)
         dotBuilder.node ([shape:"record"] + [fontsize:prefs.fontsize] + skin.nodeStyle)
