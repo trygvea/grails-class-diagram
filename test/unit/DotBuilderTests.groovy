@@ -40,7 +40,6 @@ Foo - Bar;
             }
             from("Foo").to("Bar", [arrowhead:"none", arrowtail:"none"])
         }    
-        log.fine "###"+dotBuilder.dotString
         assertEquals dotBuilder.dotString, """digraph {
 rankdir="LR";
 graph [bgcolor="white"];

@@ -58,16 +58,18 @@ class ClassDiagramController {
         }
     }
     
+    // TODO many weird libs have some ContentType class that does this, but we should instead be able to tap into grails mime types!
+    // See for instance http://www.rgagnon.com/javadetails/java-0487.html
+    static final MIME_TYPE = [
+        "jpg":"image/jpeg",
+        "svg":"image/svg+xml",
+        "dot":"text/plain",
+        "pdf":"application/pdf",
+        "eps":"application/postscript",
+    ]
+
     private String mimeTypeFor(fileFormat) {
-        // TODO many weird libs have some ContentType class that does this, but we should instead be able to tap into grails mime types!
-        // See for instance http://www.rgagnon.com/javadetails/java-0487.html
-        def mimeType = [
-            "jpg":"image/jpeg",
-            "svg":"image/svg+xml",
-            "pdf":"application/pdf",
-            "eps":"application/postscript",
-        ]
-        mimeType[fileFormat] ?: "image/"+fileFormat // Take a chance
+        MIME_TYPE[fileFormat] ?: "image/"+fileFormat // Take a chance
     }
 
     /*    private debugMethods(domainClass) {
@@ -103,7 +105,7 @@ class ClassDiagramPreferences {
 
     def classNamesToShow = []
 
-    String skin = CH.config.classDiagram.preferences.defaults.skin
+    String skin = defaults.skin
     
     int fontsize = 10 //getSkinProperty("node","fontsize", CH.config.classDiagram.preferences.defaults.fontsize)
     
@@ -115,9 +117,6 @@ class ClassDiagramPreferences {
     
     // Find properties on skin 
     def getSkinProperty(skinPart, propertyName, defaultValue) {
-        println "######"+defaultValue
-        println "######"+CH.config.classDiagram.skins."${skin}"."${skinPart}Style"["${propertyName}"]
-        println "######"+CH.config.classDiagram.skins."${skin}"."graphStyle"["${propertyName}"]
         CH.config.classDiagram.skins."${skin}"."${skinPart}Style"["${propertyName}"] ?:
         CH.config.classDiagram.skins."${skin}"."graphStyle"["${propertyName}"] ?:
         defaultValue
