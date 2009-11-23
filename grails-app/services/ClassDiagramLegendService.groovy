@@ -5,6 +5,11 @@ class ClassDiagramLegendService {
     static transactional = false
 
     byte[] createLegend() {
+        def dotBuilder = createDotLegend()
+        dotBuilder.createDiagram("png")
+    }
+
+    DotBuilder createDotLegend() {
         def style = CH.config.classDiagram.legend.style
         def cfg = CH.config.classDiagram.associations
 
@@ -52,7 +57,8 @@ class ClassDiagramLegendService {
                     cfg.arrows.inherits, cfg.arrows.none, cfg.decorators.none, cfg.decorators.none);
             }
 
-        }.createDiagram("png")
+        }
+        dotBuilder
     }
 
     private void buildLegendItem(dotBuilder, int count, String name, String description, String arrowhead, String arrowtail, String headlabel, String taillabel) {
