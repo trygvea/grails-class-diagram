@@ -5,14 +5,30 @@ class ClassDiagramControllerTests extends GrailsUnitTestCase {
     def transactional = false
     def classDiagramService
     
+    @Override
+    protected void setUp() {
+        super.setUp();
+        GroovyClassLoader gcl = new GroovyClassLoader()
+        def classDiagramConfig = new ConfigSlurper().parse(gcl.loadClass('ClassDiagramConfig'))
+        CH.setConfig(classDiagramConfig)
+    }
     //
     void testPngImage()  {
         def controller = new ClassDiagramController()
         controller.classDiagramService = classDiagramService
-        controller.request.addParameter("outputFormat","png") // Is NOT converted into Command Object, as the doc suggest (http://grails.org/doc/1.2/guide/9.%20Testing.html#9.2%20Integration%20Testing)
+        controller.params.outputFormat = "png"
         controller.model()
         assertEquals 200, controller.response.status 
         assertEquals "image/png", controller.response.contentType 
+    }
+
+    void testPdf()  {
+        def controller = new ClassDiagramController()
+        controller.classDiagramService = classDiagramService
+        controller.params.outputFormat = "pdf"
+        controller.model()
+        assertEquals 200, controller.response.status 
+        assertEquals "application/pdf", controller.response.contentType 
     }
     
 }

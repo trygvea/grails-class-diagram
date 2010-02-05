@@ -1,4 +1,4 @@
-<plugin name='class-diagram' version='0.4' grailsVersion='1.1.1 &gt; *'>
+<plugin name='class-diagram' version='0.4.1' grailsVersion='1.1.1 &gt; *'>
   <author>Trygve Amundsen</author>
   <authorEmail>trygve.amundsen at gmail.com</authorEmail>
   <title>Creates a class diagram from grails domain classes</title>
@@ -27,5 +27,8 @@ The excellent utility graphviz (http://www.graphviz.org/) is used for diagram la
     <resource>ClassDiagramLegendService</resource>
     <resource>ClassDiagramService</resource>
   </resources>
-  <dependencies />
+  <dependencies>
+    <resolvers />
+  </dependencies>
+  <behavior />
 </plugin>

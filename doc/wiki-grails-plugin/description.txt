@@ -7,7 +7,7 @@ The ClassDiagram plugin provides an UML-like diagram of your grails domain class
 h1. Usage
 After installation, a class diagram of our domain classes should be available under [http://localhost:8080/yourApp/classDiagram]:
 
-!screenshots-516/classDiagramDefault.png! 
+!description-516/classDiagramDefault.png! 
 
 
 
@@ -28,7 +28,7 @@ h1. Legend
 
 The following relations are recognized:
 
-!screenshots-516/legend.jpg!
+!description-516/legend.png!
 
 
 
@@ -147,24 +147,36 @@ And of course thanks to the people behind the fantastic graphviz utility.
 
 h1. Release notes
 
-0.1 Initial release
+0.4.1 Fixes
+ * GRAILSPLUGINS-1607: java.lang.StringIndexOutOfBoundsException for 1-char-long property names.
+ * GRAILSPLUGINS-1583: Show association name from both directions
+  
+0.4 Fixes & Features. 
+ * GRAILSPLUGINS-1559: WAR-packaged application fails to start if deployed with Class diagram plugin
+ * Default preferences configurable. 
+ * Classes can now be shown grouped in packages
+ * Graphviz 2.24 fix: translates bgcolor:none to black, while prior versions translate to white! Fixed
+ * Default outputFormat is now png
+ * Properties page now initially invisible
+ * Non-image outputFormats like svg and pdf now works, even from form
+ * New skin, classicSpaced, that use graphviz options to get more 'space' around nodes. Contributed by Gavin Kromhout.
+ * Preferences defaults can now be configured
+ * Legend: not loaded before required, and brushed up
+ * GUI form state fixes: Hiding menu now conservers preferences; enter-key now synonymous with pushing 'Update'.
+ * DotBuilder now supports subgraphs
+ * Added property for graph orientation: top to bottom or left to right
+ * (cleaned up CSS a bit)
+ * (reformatted code to 4 spaces indentation, not tabs)
+
+
+0.3 Brush-up. Added support for embedded objects, provided a GUI for changing
+    properties, re-ordering
 
 0.2 Bugfix. Removed domain classes in sub-packages when packaging plugin.  
 
-0.3 Brush-up. Added support for embedded objects, provided a GUI for changing
-	properties, re-ordering
-
-0.4 Fixes & Features. Classes can now be shown grouped in packages. 
-    Default preferences configurable. Some bugfixes (see svn).
+0.1 Initial release
 
 
 h1. Backlog
-
-0.5 backlog
-* Fontsize slider should override fontsize preferences. Multiple fontsize sliders (node, edge, package). 
-* Better enum support. Enums now outside packages
-* editable combobox on outputFormat
-* user should  be able to select domain class subset
-* Extend diagram to non-domain classes (services, controllers, etc. etc.) 
-
+See "JIRA":http://jira.codehaus.org/browse/GRAILSPLUGINS/component/14031 for the official backlog and doc/NOTES.txt for details and crazy ideas.
 

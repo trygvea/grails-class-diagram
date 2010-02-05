@@ -1,9 +1,10 @@
 DefaultPackage
 grails-app.conf
 grails-app.controllers
+grails-app.domain
 grails-app.domain.test
+grails-app.domain.test.subpackage
 grails-app.services
 scripts
 src.groovy
 test.integration
-test.unit

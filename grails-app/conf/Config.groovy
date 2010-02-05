@@ -20,3 +20,11 @@ log4j = {
     debug    'DotBuilder' // root
 
 }
+
+graphviz {
+	dot.executable = "/usr/local/bin/dot" // include full file path if not on path
+}
+
+// The following properties have been added by the Upgrade process...
+grails.views.default.codec="none" // none, html, base64
+grails.views.gsp.encoding="UTF-8"

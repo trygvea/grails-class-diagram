@@ -1,4 +1,4 @@
-See backlog and release notes in description.txt.
+See backlog in JIRA and release notes in description.txt.
 
 Work-in-progress notes
 -------------------------------------------------------------------------------
@@ -11,16 +11,14 @@ Detailed feature & issue list
 -------------------------------------------------------------------------------
 
 Unassigned
- * Fontsize slider should override fontsize preferences. Multiple fontsize sliders (node, edge, package). 
+ (See JIRA - http://jira.codehaus.org/browse/GRAILSPLUGINS/component/14031)
  * add packages in source to provide more consistent logging (according to http://grails.markmail.org/search/?q=list%3Adev+#query:list%3Adev%20+page:2+mid:uunlkazqvgpvhaqt+state:results)
  * GUI spinner should be bigger & positioned over the graph, and run until image finished loading!
  * Report errors on server (ex dot/format errors) as grails errors. Remove alert in ajax error
- * Better enum support. Enums now outside packages
  * editable combobox on outputFormat
  * UI looks awful on IE7 (but who cares :)
  * DRY on plugin home URL (in ClassDiagramPlugin and in menubar)
  * test on windows
- * user should  be able to select domain class subset
  * Filter domain classes. Per class? per package ?
  * Extend diagram to non-domain classes (services, controllers, etc. etc.) 
  * Draw seqeunce diagrams based on recording (using meta.invokeMethod), and possibly UMLGraph.org (think graphviz is unsuited)
@@ -40,31 +38,3 @@ Unassigned
      - edit code (must set sourcepath first time)
      - filter out classes
      ? change order 
-
-
-
-
-Detailed release notes
--------------------------------------------------------------------------------
-
-0.4 Fixes and package grouping.
-* Classes can now be shown grouped in packages
-* Graphviz 2.24 fix: translates bgcolor:none to black, while prior versions translate to white! Fixed
-* Default outputFormat is now png
-* Properties page now initially invisible
-* Non-image outputFormats like svg and pdf now works, even from form
-* New skin, classicSpaced, that use graphviz options to get more 'space' around nodes. Contributed by Gavin Kromhout.
-* Preferences defaults can now be configured
-* Legend: not loaded before required, and brushed up
-* GUI form state fixes: Hiding menu now conservers preferences; enter-key now synonymous with pushing 'Update'.
-* DotBuilder now supports subgraphs
-* Added property for graph orientation: top to bottom or left to right
-* (cleaned up CSS a bit)
-* (reformatted code to 4 spaces indentation, not tabs)
-
-
-
-
-
-
-
