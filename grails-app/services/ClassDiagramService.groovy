@@ -118,7 +118,9 @@ class ClassDiagramService {
             }
             // build inheritance 
             domainClass.subClasses.each { subClass ->
-                dotBuilder.from(domainClass.name).to(subClass.name, [arrowhead:cfg.arrows.none, arrowtail:cfg.arrows.inherits])
+                if (subClass.clazz.superclass == domainClass.clazz) { // GRAILSPLUGINS-1740: domainClass.subClasses also returns all sub-sub-classes! 
+                    dotBuilder.from(domainClass.name).to(subClass.name, [arrowhead:cfg.arrows.none, arrowtail:cfg.arrows.inherits])
+                }
             }                
         }
     }
