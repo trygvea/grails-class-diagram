@@ -1,5 +1,6 @@
 import org.codehaus.groovy.grails.commons.GrailsDomainClass
 import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
+import java.util.regex.Pattern
 
 /**
  * Service that takes grails domain classes and turns them into a domain class diagram.
@@ -19,6 +20,7 @@ class ClassDiagramService {
         def skin = CH.config.classDiagram.skins?."${prefs.skin}"
         
         domainClasses = randomizeOrder(domainClasses, prefs)
+        domainClasses = classSelection(domainClasses, prefs)
 
         def dotBuilder = new DotBuilder()
         dotBuilder.digraph {
@@ -133,7 +135,58 @@ class ClassDiagramService {
             return coll
         }
     }
-    
+
+    /**
+     * find subset of classes according to preferences
+     */
+    private Collection classSelection(domainClasses, prefs) {
+        if (!prefs.classSelection || prefs.classSelection == "<all>") {
+            return domainClasses
+        }
+        if (prefs.classSelectionIsRegexp) {
+            def classSelectionPattern = Pattern.compile(addRegexpWildcardsWhereNeeded(prefs.classSelection))
+            domainClasses.findAll { cls ->
+                String fullName = cls.packageName + "." + cls.name
+                fullName ==~ classSelectionPattern
+            }
+        } else {
+            domainClasses.findAll { cls ->
+                String fullName = cls.packageName + "." + cls.name
+                fullName.indexOf(stripWildcardsOnEnds(prefs.classSelection)) >= 0
+            }
+        }
+    }
+
+    /**
+     * strip preceeding and succeeding wildcards (*) from string 
+     */
+     String stripWildcardsOnEnds(String s) {
+         if (s.startsWith('*')) {
+             s = s[1..-1]
+         }
+         if (s.endsWith('*')) {
+             s = s[0..-2]
+         }
+         s
+     }
+
+     /**
+      * Add regexp wildcards (.*) before and after s, and before and after every '|' (regexp or).
+      */
+      String addRegexpWildcardsWhereNeeded(String s) {
+          s.tokenize('|').collect {
+              def sb = new StringBuilder()
+              if (!it.startsWith('.*')) {
+                  sb.append(".*")
+              }
+              sb.append(it)
+              if (!it.endsWith('.*')) {
+                  sb.append(".*")
+              }
+              sb.toString()
+          }.join('|')
+      }
+
     /**
      * @return the dot properties for the given association (which is a domainClass.property)
      */

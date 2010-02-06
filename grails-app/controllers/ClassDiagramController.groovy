@@ -103,6 +103,9 @@ class ClassDiagramPreferences {
     boolean showEnumAsProperty = defaults.showEnumAsProperty
     boolean showPackages = defaults.showPackages
 
+    String classSelection = defaults.classSelection
+    String classSelectionIsRegexp = defaults.classSelectionIsRegexp
+    
     def classNamesToShow = []
 
     String skin = defaults.skin

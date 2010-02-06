@@ -3,7 +3,9 @@ See backlog in JIRA and release notes in description.txt.
 Work-in-progress notes
 -------------------------------------------------------------------------------
 
-
+* classSelection works on domainclasses only. 
+* Bug: when using classSelection:  unmatched references (entities & enums) are shown! 
+* 
 
 
 

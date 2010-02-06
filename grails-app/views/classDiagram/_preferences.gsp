@@ -90,6 +90,17 @@
                 </fieldset>
             </fieldset>
             
+            <fieldset id="class_selection" class="">
+                <ol>
+                    <li title="Select a subset of classes by entering part of a class and/or package name. Ex. 'com.my.subdomain', '[Oo]rder', 'Foo|Bar'. Note: leading an trailing wildcards is not needed. See http://java.sun.com/j2se/1.4.2/docs/api/java/util/regex/Pattern.html for regexp spec. ">
+                        <label for="classSelection">Classes:</label>
+                        <input type="text" id="classSelection" name="classSelection" value="${fieldValue(bean:prefs,field:'classSelection')}"/>
+                        <g:checkBox name="classSelectionIsRegexp" value="${prefs.classSelectionIsRegexp}" ></g:checkBox>
+                        Regexp
+                    </li>
+                </ol>
+            </fieldset>
+            
             <fieldset id="misc_fields" class="">
                 <ol>
                     <li title="Changes the size of the underlying model image. Note: Will not have any effect if your skin has hardcoded fontsize.">
@@ -99,7 +110,7 @@
                     </li>
                     <li title="Image format. Try png, gif, img, pdf eps, dot, or any other format described in http://graphviz.org/doc/info/output.html. Warning: Some of these formats may not work, and you may not get a sensible error message!">
                         <label for="outputFormat">Output Format:</label>
-                        <input type="text" id="outputFormat" name="outputFormat" value="${fieldValue(bean:prefs,field:'outputFormat')}"/>
+                        <input type="text" size="5" id="outputFormat" name="outputFormat" value="${fieldValue(bean:prefs,field:'outputFormat')}"/>
                     </li>
                     <li title="Graph orientation, or, in graphviz terminology: rankdir">
                         <label for="graphOrientation">Orientation:</label>
@@ -113,14 +124,16 @@
                 </ol>
             </fieldset>
 
-        </div>
-            <div id="autoUpdate-selection" title="Update the model image instantly when you change any preferences. Uncheck if you want to delay updating until you hit 'Update'">
-                <label for="autoUpdate">
-                    <g:checkBox name="autoUpdate" value="${prefs?.autoUpdate}"></g:checkBox>
-                    Auto Update
-                </label>
             </div>
-    </g:form>
+                <div id="autoUpdate-selection" title="Update the model image instantly when you change any preferences. Uncheck if you want to delay updating until you hit 'Update'">
+                    <label for="autoUpdate">
+                        <g:checkBox name="autoUpdate" value="${prefs?.autoUpdate}"></g:checkBox>
+                        Auto Update
+                    </label>
+                </div>
+            </div>
+        </g:form>
+    </div>
 
 
 

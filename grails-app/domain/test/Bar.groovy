@@ -9,7 +9,6 @@ class Bar {
     Planet planet
 
     def barIt() {
-        "barbar"
     }
     
 }

@@ -83,7 +83,7 @@
         $("#legend").dialog({
             show: 'blind',
             hide: 'blind',
-            position: ['right','bottom'],
+            position: ['right','top'],
             width: 700,
             autoOpen: false,
             buttons: {
