@@ -1,4 +1,4 @@
-<plugin name='class-diagram' version='0.5' grailsVersion='1.2.0 &gt; *'>
+<plugin name='class-diagram' version='0.5.1' grailsVersion='1.2.0 &gt; *'>
   <author>Trygve Amundsen</author>
   <authorEmail>trygve.amundsen at gmail.com</authorEmail>
   <title>Creates a class diagram from grails domain classes</title>
