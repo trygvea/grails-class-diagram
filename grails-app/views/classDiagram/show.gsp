@@ -1,9 +1,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <link rel="stylesheet" type="text/css" href="${resource(dir:pluginContextPath+'/css',file:'classDiagram.css')}" />
-        <link rel="stylesheet" type="text/css" href="${resource(dir:pluginContextPath+'/css',file:'form.css')}" />
-        <link rel="stylesheet" type="text/css" href="${resource(dir:pluginContextPath+'/css/ui-lightness',file:'jquery-ui-1.7.2.custom.css')}" />
+        <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'classDiagram.css')}" />
+        <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'form.css')}" />
+        <link rel="stylesheet" type="text/css" href="${resource(dir:'css/ui-lightness',file:'jquery-ui-1.7.2.custom.css')}" />
         <title>Class Diagram Visualisation</title>
         <g:javascript library="jquery-1.3.2.min" />                
         <g:javascript library="jquery-ui-1.7.2.custom.min" />                

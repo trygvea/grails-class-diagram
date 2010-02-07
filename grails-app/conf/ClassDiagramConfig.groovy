@@ -21,6 +21,8 @@ classDiagram {
             showEnumAsProperty = true
             showPackages = false
             autoUpdate = true
+            classSelection = "<all>"
+            classSelectionIsRegexp = false
             graphOrientation = "TB" // See http://www.graphviz.org/doc/info/attrs.html#k:rankdir for valid values
             fontsize = 9
         }

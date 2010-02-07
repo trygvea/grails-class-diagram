@@ -147,6 +147,16 @@ And of course thanks to the people behind the fantastic graphviz utility.
 
 h1. Release notes
 
+0.5.1 Fix
+ * GRAILSPLUGINS-1931 - Associations now shows up as properties
+
+0.5 Fixes & features
+ * GRAILSPLUGINS-1587 - Enum classes appears outside all package (when using package view)
+ * GRAILSPLUGINS-1618 - In One-to-Many relationships the belongsTo diamond is not always shown by class-diagram.
+ * GRAILSPLUGINS-1926 - css files in show.gsp are not correctly referenced
+ * GRAILSPLUGINS-1740 - Too many inheritance associations
+ * GRAILSPLUGINS-1589 - User should be able to select domain class subset
+
 0.4.1 Fixes
  * GRAILSPLUGINS-1607: java.lang.StringIndexOutOfBoundsException for 1-char-long property names.
  * GRAILSPLUGINS-1583: Show association name from both directions

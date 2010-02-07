@@ -1,13 +1,13 @@
 h1. FAQ
 
-* The image doesnt size when I move the size slider. 
-    ** A: This may occur if your skin has hardcoded fontsize. Use another skin or create your own.  
+* Which output formats has been tested and is known to work? 
+    ** A: image formats: png, jpg, gif, bmp; Other: pdf, eps, svg, dot
+* I am running IE 7 and the preferences dialog looks awful.
+    ** A: Move to another browser :) The plugin is known to work on Firefox 3.5.7, Safari 4.0.4 and Chrome 4.0.249.49.
 * Image is blurry (when the menu is visible). 
     ** A: This is probably because the browser has zoom on. Workaround: Either reset the zoom in the browser, or click the image
-* Legend is blurry. 
-    ** A: Same as above. Try resetting zoom in the browser.
-* Which output formats has been tested and is known to work? 
-    **A: image formats: png, jpg, gif, bmp; Other: pdf, eps, svg, dot
+* The image doesnt size when I move the size slider. 
+    ** A: This may occur if your skin has hardcoded fontsize. Use another skin or create your own.  
 * IE does not know what to do with non image formats. 
     ** A: IE uses the file name extension and may not recognise the mime type.
     ** A: Save the file and give it the appropriate extension e.g. model.pdf
