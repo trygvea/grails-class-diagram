@@ -92,7 +92,7 @@
             
             <fieldset id="class_selection" class="">
                 <ol>
-                    <li title="Select a subset of classes by entering part of a class and/or package name. Ex. 'com.my.subdomain', '[Oo]rder', 'Foo|Bar'. Note: leading an trailing wildcards is not needed. See http://java.sun.com/j2se/1.4.2/docs/api/java/util/regex/Pattern.html for regexp spec. ">
+                    <li title="Select a subset of classes by entering part of a class and/or package name. Ex. 'com.my.subdomain', '[Oo]rder', 'Foo|Bar'. Note: leading an trailing wildcards is not needed. Works on domain classes only. See http://java.sun.com/j2se/1.4.2/docs/api/java/util/regex/Pattern.html for regexp spec. ">
                         <label for="classSelection">Classes:</label>
                         <input type="text" id="classSelection" name="classSelection" value="${fieldValue(bean:prefs,field:'classSelection')}"/>
                         <g:checkBox name="classSelectionIsRegexp" value="${prefs.classSelectionIsRegexp}" ></g:checkBox>

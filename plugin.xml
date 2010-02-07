@@ -19,6 +19,7 @@ The excellent utility graphviz (http://www.graphviz.org/) is used for diagram la
     <resource>test.Child</resource>
     <resource>test.Foo</resource>
     <resource>test.FooBar</resource>
+    <resource>test.Grandfather</resource>
     <resource>test.Many</resource>
     <resource>test.MoreFooBar</resource>
     <resource>test.Parent</resource>
