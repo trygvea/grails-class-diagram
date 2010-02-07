@@ -265,7 +265,7 @@ class ClassDiagramService {
         if (cls instanceof GrailsDomainClass) {
             cls.properties.findAll { prop ->
                 !(prop.name in ["id","version"]) && 
-                (!(prop.embedded && !prefs.showEmbeddedAsProperty)) &&
+                (!prop.association || (prop.embedded && prefs.showEmbeddedAsProperty)) &&
                 (!(prop.enum && !prefs.showEnumAsProperty)) &&
                 (!prop.inherited)
             }
