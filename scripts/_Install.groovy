@@ -11,6 +11,6 @@
 try { 
 	"dot -V".execute().text
 } catch (IOException ex){
-	// TODO this exception doesnt make install fail
-	throw new RuntimeException("Graphviz not on path. Install from http://graphviz.org/download", ex) 
+	println "WARNING: Graphviz dot utility is not on path. The class-diagram plugin will NOT work without it."
+	println "         Install from http://graphviz.org/download or set full path to dot utility in property graphviz.dot.executable."
 }
