@@ -30,7 +30,7 @@ class ClassDiagramController {
             redirect action:model
         } else {
             prefs.random = new Random().nextInt() // Need a change to force reload of img tag
-            render template:'image', model:[prefs:prefs.declaredProperties], plugin:'classDiagram'
+            render template:'image', model:[prefs:prefs.properties], plugin:'classDiagram'
         }
     }
 
@@ -123,10 +123,6 @@ class ClassDiagramPreferences {
         CH.config.classDiagram.skins."${skin}"."${skinPart}Style"["${propertyName}"] ?:
         CH.config.classDiagram.skins."${skin}"."graphStyle"["${propertyName}"] ?:
         defaultValue
-    }
-    
-    def getDeclaredProperties() {
-        properties - ["declaredProperties", "class", "metaClass", "errors"] // Note: uses Map.minus added in plugin
     }
     
     // Groovy bug? If we define method as isVertical..., it will not be part of this class's properties collection
