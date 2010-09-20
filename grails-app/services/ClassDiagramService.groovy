@@ -119,7 +119,7 @@ class ClassDiagramService {
             // build inheritance 
             domainClass.subClasses.each { subClass ->
                 if (subClass.clazz.superclass == domainClass.clazz) { // GRAILSPLUGINS-1740: domainClass.subClasses also returns all sub-sub-classes! 
-                    dotBuilder.from(domainClass.name).to(subClass.name, [arrowhead:cfg.arrows.none, arrowtail:cfg.arrows.inherits])
+                    dotBuilder.from(domainClass.name).to(subClass.name, [arrowhead:cfg.arrows.none, arrowtail:cfg.arrows.inherits, dir:'both'])
                 }
             }                
         }
@@ -199,7 +199,7 @@ class ClassDiagramService {
         def headlabel = ass.oneToMany || ass.manyToMany ? cfg.decorators.hasMany  : cfg.decorators.hasOne
         def taillabel = !ass.bidirectional ? cfg.decorators.none : ass.manyToOne || ass.manyToMany ? cfg.decorators.hasMany  : cfg.decorators.hasOne
         def label = prefs?.showAssociationNames ? ass.bidirectional ? ass.otherSide.name + " / " + ass.name : ass.name : ""
-        [label:label, arrowhead:arrowhead, arrowtail:arrowtail, headlabel:headlabel, taillabel:taillabel]
+        [label:label, arrowhead:arrowhead, arrowtail:arrowtail, headlabel:headlabel, taillabel:taillabel, dir:'both']
     }
         
     /**

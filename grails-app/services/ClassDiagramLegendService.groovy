@@ -67,7 +67,7 @@ class ClassDiagramLegendService {
         def legendNode = "l${count}"
         dotBuilder."${nodeA}" ([label:"a"])
         dotBuilder."${nodeB}" ([label:"b"])
-        dotBuilder.from(nodeA).to(nodeB, [label:"${name}", arrowhead:"${arrowhead}", arrowtail:"${arrowtail}", headlabel:"${headlabel}", taillabel:"${taillabel}"])
+        dotBuilder.from(nodeA).to(nodeB, [label:"${name}", arrowhead:"${arrowhead}", arrowtail:"${arrowtail}", headlabel:"${headlabel}", taillabel:"${taillabel}", dir:'both'])
         dotBuilder."${legendNode}" ([style:"none", width:"7", penwidth:"0", label:"${description}\\l"])
         dotBuilder.from(nodeB).to(legendNode, [label:"", penwidth:"0", arrowhead:"none"])
     } 
