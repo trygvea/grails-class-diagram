@@ -1,5 +1,5 @@
 /**
- * Default properties. May be overridden in Config.properties for each project
+ * Default properties. May be overridden in Config.groovy for each project
  */
 graphviz {
     dot.executable = "dot" // include full file path if not on path

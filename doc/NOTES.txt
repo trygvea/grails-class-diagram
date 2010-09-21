@@ -26,6 +26,28 @@ Unassigned
  * examine on which os jpg+waitFor fails
  * Keyboard shortcuts on menu
 
+ * static transients doens work. See http://jira.codehaus.org/browse/GRAILSPLUGINS-2053
+ * Provide different formatting for embedded/enums!
+ * Log error: "Something went wrong..." to log4j
+ * More sensible error message when dot generation fails
+ * Test install in sts (0.5.1 failed because dot not found, but 0.5.2 untested).
+ * When many relations between objecs, we show only one w/multiple decorations!
+ * Add dependency diagram: 
+     User select test case/package: instrument code, graph!
+ * Minimalise js, mm
+ * release 1.0!
+ * try spock for testing!
+ * (optional show stereotype)
+ * Check if GORM-JPA works on my plugin
+ * Still trouble with pdf in firefox!
+ * Make screencast with screentoaster; -> Youtube!
+ - Check out modsl (plain java graphing toolkit (google 'class diagram')
+ - add coloring (list of regexp/colors)
+ - JIRA cleanup
+     - Add release 0.6
+     - Report unreported bugs in JIRA
+
+
  Out on the limb
   * Cut restart time by having a separate server for the class diagram viewer (kind of like the grails console), that loads/reloads the domain classes only using application.addDomanClass/addArtifact or something similar?
      - Modularize and create eclipse-plugin ? 
