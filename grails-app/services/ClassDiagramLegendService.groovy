@@ -1,8 +1,8 @@
-import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
 
 class ClassDiagramLegendService {
     
     static transactional = false
+	def grailsApplication
 
     byte[] createLegend() {
         def dotBuilder = createDotLegend()
@@ -10,8 +10,8 @@ class ClassDiagramLegendService {
     }
 
     DotBuilder createDotLegend() {
-        def style = CH.config.classDiagram.legend.style
-        def cfg = CH.config.classDiagram.associations
+        def style = grailsApplication.config.classDiagram.legend.style
+        def cfg = grailsApplication.config.classDiagram.associations
 
         def dotBuilder = new DotBuilder()
         dotBuilder.digraph {

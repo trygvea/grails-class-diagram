@@ -1,16 +1,16 @@
 import grails.test.*
-import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
 
 class ClassDiagramControllerTests extends GrailsUnitTestCase {
     def transactional = false
     def classDiagramService
+	def grailsApplication
     
     @Override
     protected void setUp() {
         super.setUp();
         GroovyClassLoader gcl = new GroovyClassLoader()
         def classDiagramConfig = new ConfigSlurper().parse(gcl.loadClass('ClassDiagramConfig'))
-        CH.setConfig(classDiagramConfig)
+        grailsApplication.setConfig(classDiagramConfig)
     }
     //
     void testPngImage()  {

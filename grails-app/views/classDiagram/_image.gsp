@@ -1,3 +1,4 @@
-    <a class="model-img-link" href="${createLink(action:'model', params: prefs)}" title="Open image">
-        <img class="model-img" src="${createLink(action:'model', params: prefs)}" />    
-    </a>    
+<a class="model-img-link" href="<g:mappedParams action="model" controller="classDiagram" params="${prefs}" />" title="Open image">
+	<img class="model-img" src="<g:mappedParams action="model" controller="classDiagram" params="${prefs}" />" />
+</a> 
+
