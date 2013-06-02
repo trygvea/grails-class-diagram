@@ -1,6 +1,6 @@
 import org.codehaus.groovy.grails.commons.GrailsDomainClass
-import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
 import java.util.regex.Pattern
+import grails.util.Holders
 
 /**
  * Service that takes grails domain classes and turns them into a domain class diagram.
@@ -9,6 +9,7 @@ import java.util.regex.Pattern
  */
 class ClassDiagramService {
 
+	def config = Holders.config
     static transactional = false
 	
     // TO deal with the issue to know the Grails 's injected methods,
@@ -22,7 +23,7 @@ class ClassDiagramService {
     }
     
     DotBuilder createDotDiagram(domainClasses, prefs) {
-        def skin = CH.config.classDiagram.skins?."${prefs.skin}"
+        def skin = config.classDiagram.skins?."${prefs.skin}"
         
         domainClasses = randomizeOrder(domainClasses, prefs)
         domainClasses = classSelection(domainClasses, prefs)
@@ -146,7 +147,7 @@ class ClassDiagramService {
     }
     
     private void buildRelations(dotBuilder, domainClasses, prefs) {
-        def cfg = CH.config.classDiagram.associations
+        def cfg = config.classDiagram.associations
 
         domainClasses.each { domainClass ->
             // build associations
@@ -230,7 +231,7 @@ class ClassDiagramService {
      * @return the dot properties for the given association (which is a domainClass.property)
      */
     private getAssociationProps(ass, prefs) {
-        def cfg = CH.config.classDiagram.associations
+        def cfg = config.classDiagram.associations
         def arrowhead = !ass.bidirectional ? cfg.arrows.references : (!ass.owningSide && ass.otherSide.owningSide) ? cfg.arrows.belongsTo : cfg.arrows.none
         def arrowtail = ass.embedded || ass.enum ? cfg.arrows.embedded : ass.owningSide ? cfg.arrows.belongsTo : cfg.arrows.none
         def headlabel = ass.oneToMany || ass.manyToMany ? cfg.decorators.hasMany  : cfg.decorators.hasOne

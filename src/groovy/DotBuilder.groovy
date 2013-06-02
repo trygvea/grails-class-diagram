@@ -1,7 +1,7 @@
 import groovy.util.BuilderSupport
-import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
 import javax.imageio.ImageIO
 import org.apache.log4j.Logger
+import grails.util.Holders
 
 /**
  * A simple builder for creating graphviz dot files. 
@@ -15,6 +15,7 @@ import org.apache.log4j.Logger
  */
 class DotBuilder extends BuilderSupport {
     Logger log = Logger.getLogger(getClass())
+	def config = Holders.config
     
     private def out
     private def outTarget
@@ -99,7 +100,7 @@ class DotBuilder extends BuilderSupport {
         log.debug "Graphviz dot:\n"+dot  
         def p
         try {
-            def dotExe = CH.config.graphviz.dot.executable
+            def dotExe = config.graphviz.dot.executable
             p = (dotExe+" -T"+outputFormat).execute()
         } catch (IOException ex) {
             throw new RuntimeException("Graphviz dot utility must be installed and on path, or path set in graphviz.dot.executable. Download from http://graphviz.org ",ex)

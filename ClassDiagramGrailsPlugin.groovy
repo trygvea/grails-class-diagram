@@ -1,4 +1,4 @@
-import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
+
 class ClassDiagramGrailsPlugin {
     // the plugin version
     def version = "0.5.4"

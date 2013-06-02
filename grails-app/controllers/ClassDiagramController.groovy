@@ -1,5 +1,9 @@
 import java.awt.Image
-import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
+//import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
+import grails.util.Holders
+
+
+
 
 /**
  * Create a class diagram from grails domain model.
@@ -8,6 +12,7 @@ class ClassDiagramController {
 
     def classDiagramService
     def classDiagramLegendService
+	def grailsApplication
 
     def index = { 
         redirect action:'show'
@@ -17,7 +22,7 @@ class ClassDiagramController {
         bindData(prefs, params)
         
         def skins = [:] // skin as [name:description] makes client easier
-        CH.config.classDiagram.skins.each {
+        grailsApplication.config.classDiagram.skins.each {
             skins.put(it.key, it.value.name)
         }
         def graphOrientations = ["TB":"Top to Bottom", "LR": "Left to Right", "BT": "Bottom to Top", "RL": "Right to Left"] 
@@ -89,7 +94,9 @@ class ClassDiagramController {
  * Preferences for class diagram. Used as a Command Object for this controller.
  */
 class ClassDiagramPreferences {
-    static def defaults = CH.config.classDiagram.preferences.defaults 
+	
+    static def defaults = Holders.config.classDiagram.preferences.defaults 
+	
     
     String outputFormat = defaults.outputFormat
 
@@ -110,7 +117,7 @@ class ClassDiagramPreferences {
 
     String skin = defaults.skin
     
-    int fontsize = 10 //getSkinProperty("node","fontsize", CH.config.classDiagram.preferences.defaults.fontsize)
+    int fontsize = 10 //getSkinProperty("node","fontsize", grailsApplication.config.classDiagram.preferences.defaults.fontsize)
     
     boolean autoUpdate = defaults.autoUpdate
     String graphOrientation = defaults.graphOrientation
@@ -120,8 +127,8 @@ class ClassDiagramPreferences {
     
     // Find properties on skin 
     def getSkinProperty(skinPart, propertyName, defaultValue) {
-        CH.config.classDiagram.skins."${skin}"."${skinPart}Style"["${propertyName}"] ?:
-        CH.config.classDiagram.skins."${skin}"."graphStyle"["${propertyName}"] ?:
+        grailsApplication.config.classDiagram.skins."${skin}"."${skinPart}Style"["${propertyName}"] ?:
+        grailsApplication.config.classDiagram.skins."${skin}"."graphStyle"["${propertyName}"] ?:
         defaultValue
     }
     
