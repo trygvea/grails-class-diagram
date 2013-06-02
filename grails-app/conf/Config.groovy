@@ -22,7 +22,7 @@ log4j = {
 }
 
 graphviz {
-	dot.executable = "/usr/local/bin/dot" // include full file path if not on path
+	dot.executable = "dot" // include full file path if not on path
 }
 
 // The following properties have been added by the Upgrade process...
