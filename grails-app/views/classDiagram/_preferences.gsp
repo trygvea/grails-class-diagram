@@ -1,4 +1,3 @@
-
     <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>
     </g:if>
@@ -9,7 +8,7 @@
     </g:hasErrors>
 
     <div class="dialog">
-        <g:form name="preferencesForm" method="post" action="model">
+        <g:form name="preferencesForm" method="post" action="image">
 
             <fieldset id="misc_fields" class="">
                 <ol>
@@ -124,17 +123,12 @@
                 </ol>
             </fieldset>
 
-            </div>
+
                 <div id="autoUpdate-selection" title="Update the model image instantly when you change any preferences. Uncheck if you want to delay updating until you hit 'Update'">
                     <label for="autoUpdate">
-                        <g:checkBox name="autoUpdate" value="${prefs?.autoUpdate}"></g:checkBox>
+                        <g:checkBox name="autoUpdate" value="false"></g:checkBox>
                         Auto Update
                     </label>
                 </div>
-            </div>
         </g:form>
     </div>
-    
-
-
-

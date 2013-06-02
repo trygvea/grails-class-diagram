@@ -10,7 +10,12 @@ import java.util.regex.Pattern
 class ClassDiagramService {
 
     static transactional = false
-
+	
+    // TO deal with the issue to know the Grails 's injected methods,
+    // we list here the commonsMethod between Grails domain class, supposed to be injected.
+    // commonsMethods is populated in buildDomainClasses()
+	List commonsMethods = new ArrayList()
+	
     byte[] createDiagram(domainClasses, prefs) {
         def dotBuilder = createDotDiagram(domainClasses, prefs)
         dotBuilder.createDiagram(prefs.outputFormat?:"png")
@@ -102,10 +107,42 @@ class ClassDiagramService {
     }
 
     private void buildDomainClasses(dotBuilder, domainClasses, prefs) {
-        domainClasses.each { domainClass ->
-            // build node for domain class
-            dotBuilder."${domainClass.name}" ([label:formatNodeLabel(domainClass, prefs)])
-        }
+		
+        // TO deal with the issue to know the Grails 's injected methods,
+        // we list commonsMethod between Grails domain class, supposed to be injected.
+        
+    	// We start to list all methods from the first domain class, and then remove
+    	// all distinct methods from other domains. At the end, we suppose to have injected, 
+    	// or at last common to all domain 
+
+    	
+		if(prefs?.showMethods) {
+			List tmpCommonsMethods = new ArrayList()
+			domainClasses.each { domainClass ->
+				if(domainClass == domainClasses.first()) {
+					// First element
+					domainClass.clazz.declaredMethods.findAll().each {
+						commonsMethods.push(it.name) 
+						
+					}
+				 } else 
+			 	 {
+					  tmpCommonsMethods = new ArrayList()
+					  domainClass.clazz.declaredMethods.findAll().each { 
+						  if(commonsMethods.contains(it.name)) {
+							  tmpCommonsMethods.push(it.name)
+						  }
+					  }
+					  commonsMethods = tmpCommonsMethods
+				 }
+			}
+		}
+
+		domainClasses.each { domainClass ->
+			// build node for domain class
+			dotBuilder."${domainClass.name}" ([label:formatNodeLabel(domainClass, prefs)])
+		}
+
     }
     
     private void buildRelations(dotBuilder, domainClasses, prefs) {
@@ -328,6 +365,11 @@ class ClassDiagramService {
         def filterMethods = methods.findAll { it.name =~ /\$/} // remove special methods containing $ 
         filterMethods += GroovyObject.methods.flatten() // remove metaClass, properties etc.
         filterMethods += Object.methods.flatten() // remove toString 
+		
+		commonsMethods.each { methodtoremove ->
+			filterMethods += methods.findAll {it.name =~ methodtoremove}
+		}
+		
 
         // filter out property-related methods
         methods.each { method ->

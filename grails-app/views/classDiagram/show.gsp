@@ -1,13 +1,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'classDiagram.css')}" />
-        <link rel="stylesheet" type="text/css" href="${resource(dir:'css',file:'form.css')}" />
-        <link rel="stylesheet" type="text/css" href="${resource(dir:'css/ui-lightness',file:'jquery-ui-1.7.2.custom.css')}" />
+        <link rel="stylesheet" type="text/css" href="${resource(dir:pluginContextPath+'/css',file:'classDiagram.css')}" />
+        <link rel="stylesheet" type="text/css" href="${resource(dir:pluginContextPath+'/css',file:'form.css')}" />
+        <link rel="stylesheet" type="text/css" href="${resource(dir:pluginContextPath+'/css/ui-lightness',file:'jquery-ui-1.7.2.custom.css')}" />
         <title>Class Diagram Visualisation</title>
-        <g:javascript library="jquery-1.3.2.min" />                
-        <g:javascript library="jquery-ui-1.7.2.custom.min" />                
-        <g:javascript library="classDiagram" />                
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="<g:resource file='js/classDiagram.js' plugin='class-diagram'/>"></script>
+        
         
     </head>
     <body>
@@ -28,10 +30,10 @@
             <g:render template="preferences" plugin="classDiagram"/>
         </div>
         <div id="legend" title="Legend">
-            <img class="legend-img" src='' href="${createLink(action:'legend', params: prefs)}"/>    
+            <img class="legend-img" src='' href="${createLink(action:'legend', params: prefs)}"/>
         </div>
         <div id="spinner" class="spinner" style="display:none;">
             <img src="${resource(dir:pluginContextPath+'/images',file:'spinner.gif')}" alt="Spinner" />
-        </div>    
+        </div>
     </body>
 </html>
